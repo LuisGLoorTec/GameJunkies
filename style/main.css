@@ -1,31 +1,86 @@
 :root {
-            --bg-dark: #121212;
-            --panel-dark: #1e1e2f;
-            --primary-purple: #6c5ce7;
-            --text-light: #f5f6fa;
-        }
+    --bg-dark: #121212;
+    --panel-dark: #1e1e2f;
+    --primary-purple: #6c5ce7;
+    --accent-cyan: #00d2d3; 
+    --text-main: #dfdfe6;   
+    --text-muted: #8b8b9f;
+}
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+body {
+    background: linear-gradient(to right, #0d0d14, var(--bg-dark));
+    color: var(--text-main);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh; 
+}
 
-        /* Navbar personalizada */
-        .navbar-custom {
-            background-color: var(--panel-dark);
-            border-bottom: 2px solid var(--primary-purple);
-        }
-        
-        .navbar-brand {
-            font-weight: bold;
-            letter-spacing: 2px;
-        }
 
-        .nav-link {
-            color: var(--text-light) !important;
-        }
+h1, h2 {
+    color: #ffffff; 
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px #000000;
+    letter-spacing: 3px;
+    font-weight: bold;
+}
 
-        .nav-link:hover {
-            color: var(--primary-purple) !important;
-        }
+.text-precio {
+    color: var(--accent-cyan);
+    text-shadow: 0px 0px 5px rgba(0, 210, 211, 0.4); 
+}
+
+.navbar-custom {
+    background: linear-gradient(to right, #09090f, var(--bg-dark));
+    border-bottom: 2px solid var(--primary-purple);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5); 
+}
+
+.navbar-brand {
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.nav-link {
+    color: var(--text-light) !important;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--primary-purple) !important;
+    text-shadow: 0px 0px 8px var(--primary-purple); 
+}
+
+.card-game {
+    background-color: var(--panel-dark);
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden; 
+}
+
+
+.card-game:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px rgba(108, 92, 231, 0.4);
+}
+
+.img-poster {
+    height: 250px;
+    object-fit: cover;
+    object-position: top;
+    border-bottom: 3px solid var(--primary-purple);
+}
+
+.btn-gaming {
+    background-color: transparent;
+    color: var(--text-main); 
+    border: 1px solid var(--primary-purple);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.btn-gaming:hover {
+    background-color: var(--primary-purple);
+    color: #fffb00; 
+    box-shadow: 0 0 15px var(--primary-purple);
+}

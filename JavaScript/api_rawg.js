@@ -49,19 +49,22 @@ function renderizarCarrusel(juegos) {
 }
 
 function renderizarGrilla(juegos) {
-    contenedorGrilla.innerHTML = '';
-    
+    const contenedorGrilla = document.getElementById('contenedor-juegos-grilla');
+    contenedorGrilla.innerHTML = ''; 
     juegos.forEach(juego => {
+
         const precioAleatorio = (Math.random() * (69.99 - 19.99) + 19.99).toFixed(2);
-        
         const tarjetaHtml = `
             <div class="col">
-                <div class="card h-100 bg-dark text-white border-secondary">
-                    <img src="${juego.background_image}" class="card-img-top" alt="${juego.name}" style="height: 200px; object-fit: cover;">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title text-truncate" title="${juego.name}">${juego.name}</h5>
-                        <p class="card-text text-success fw-bold">$ ${precioAleatorio}</p>
-                        <button class="btn btn-outline-light mt-auto" style="border-color: var(--primary-purple);">Ver detalles</button>
+                <div class="card card-game h-100">
+                    <img src="${juego.background_image}" class="card-img-top img-poster" alt="${juego.name}">
+                    <div class="card-body d-flex flex-column text-center">
+                        <h6 class="card-title text-truncate fw-bold text-white" title="${juego.name}">${juego.name}</h6>
+                        <div class="d-flex justify-content-between align-items-center mt-2 mb-3">
+                            <span class="badge bg-secondary">⭐ ${juego.rating}</span>
+                            <span class="text-precio fw-bold fs-5">$${precioAleatorio}</span>
+                        </div>
+                        <button class="btn btn-gaming mt-auto w-100">Ver Detalles</button>
                     </div>
                 </div>
             </div>
@@ -71,3 +74,39 @@ function renderizarGrilla(juegos) {
 }
 
 cargarDatosRawg();
+
+
+const inputBuscador = document.getElementById('input-buscador');
+const btnBuscar = document.getElementById('btn-buscar');
+const tituloCatalogo = document.getElementById('titulo-catalogo');
+
+
+btnBuscar.addEventListener('click', () => {
+    const termino = inputBuscador.value.trim();
+    if (termino !== '') {
+        ejecutarBusqueda(termino);
+    }
+});
+
+inputBuscador.addEventListener('keypress', (evento) => {
+    if (evento.key === 'Enter') {
+        evento.preventDefault();
+        const termino = inputBuscador.value.trim();
+        if (termino !== '') {
+            ejecutarBusqueda(termino);
+        }
+    }
+});
+
+
+function ejecutarBusqueda(termino) {
+    const urlBusqueda = `https://api.rawg.io/api/games?key=${apiKeyRawg}&search=${termino}&page_size=8`;
+    fetch(urlBusqueda)
+        .then(response => response.json())
+        .then(respuesta => {
+            tituloCatalogo.textContent = `Resultados de búsqueda: "${termino}"`;
+            renderizarGrilla(respuesta.results);
+            document.getElementById('contenedor-juegos-grilla').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        })
+        .catch(error => console.log(error)); 
+}
