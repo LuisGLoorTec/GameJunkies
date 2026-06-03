@@ -14,7 +14,6 @@ body {
     min-height: 100vh; 
 }
 
-
 h1, h2 {
     color: #ffffff; 
     text-transform: uppercase;
@@ -40,7 +39,7 @@ h1, h2 {
 }
 
 .nav-link {
-    color: var(--text-light) !important;
+    color: var(--text-main) !important;
     transition: color 0.3s ease;
 }
 
@@ -56,7 +55,6 @@ h1, h2 {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden; 
 }
-
 
 .card-game:hover {
     transform: translateY(-5px);
@@ -83,4 +81,28 @@ h1, h2 {
     background-color: var(--primary-purple);
     color: #fffb00; 
     box-shadow: 0 0 15px var(--primary-purple);
+}
+
+#lista-sugerencias .list-group-item {
+    background-color: var(--panel-dark);
+    color: var(--text-main);
+    border: 1px solid #333;
+    border-top: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, padding-left 0.2s ease;
+}
+
+#lista-sugerencias .list-group-item:hover {
+    background-color: var(--primary-purple);
+    color: #ffffff;
+    padding-left: 20px; 
+}
+
+.sugerencia-img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 10px;
+    border: 1px solid var(--primary-purple);
 }

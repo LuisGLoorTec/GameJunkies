@@ -75,10 +75,11 @@ function renderizarGrilla(juegos) {
 
 cargarDatosRawg();
 
-
 const inputBuscador = document.getElementById('input-buscador');
 const btnBuscar = document.getElementById('btn-buscar');
 const tituloCatalogo = document.getElementById('titulo-catalogo');
+const listaSugerencias = document.getElementById('lista-sugerencias'); 
+let temporizadorBusqueda; 
 
 
 btnBuscar.addEventListener('click', () => {
@@ -98,6 +99,60 @@ inputBuscador.addEventListener('keypress', (evento) => {
     }
 });
 
+inputBuscador.addEventListener('input', () => {
+    const termino = inputBuscador.value.trim();
+
+    clearTimeout(temporizadorBusqueda);
+
+    if (termino === '') {
+        listaSugerencias.style.display = 'none';
+        return;
+    }
+
+    temporizadorBusqueda = setTimeout(() => {
+        const urlSugerencias = `https://api.rawg.io/api/games?key=${apiKeyRawg}&search=${termino}&page_size=5`;
+
+        fetch(urlSugerencias)
+            .then(response => response.json())
+            .then(respuesta => mostrarSugerencias(respuesta.results))
+            .catch(error => console.log(error));
+    }, 400); 
+});
+
+function mostrarSugerencias(juegos) {
+    listaSugerencias.innerHTML = ''; 
+    if (juegos.length === 0) {
+        listaSugerencias.style.display = 'none';
+        return;
+    }
+
+    juegos.forEach(juego => {
+        const li = document.createElement('li');
+        li.className = 'list-group-item d-flex align-items-center';
+        const imagen = juego.background_image ? juego.background_image : 'https://via.placeholder.com/40x40/121212/ffffff?text=?';
+
+        li.innerHTML = `
+            <img src="${imagen}" class="sugerencia-img" alt="${juego.name}">
+            <span class="text-truncate fw-bold">${juego.name}</span>
+        `;
+
+        li.addEventListener('click', () => {
+            inputBuscador.value = juego.name; 
+            listaSugerencias.style.display = 'none'; 
+            ejecutarBusqueda(juego.name); 
+        });
+
+        listaSugerencias.appendChild(li);
+    });
+
+    listaSugerencias.style.display = 'block'; 
+}
+
+document.addEventListener('click', (evento) => {
+    if (!inputBuscador.contains(evento.target) && !listaSugerencias.contains(evento.target)) {
+        listaSugerencias.style.display = 'none';
+    }
+});
 
 function ejecutarBusqueda(termino) {
     const urlBusqueda = `https://api.rawg.io/api/games?key=${apiKeyRawg}&search=${termino}&page_size=8`;

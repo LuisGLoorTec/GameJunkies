@@ -23,9 +23,14 @@
             
             <div class="collapse navbar-collapse" id="navbarPrincipal">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
-                    <li class="nav-item me-3 d-flex">
-                        <input type="text" id="input-buscador" class="form-control form-control-sm bg-dark text-white border-secondary" placeholder="Buscar juego...">
-                        <button id="btn-buscar" class="btn btn-sm btn-outline-light ms-2">Buscar</button>
+                    
+                    <li class="nav-item me-3 d-flex position-relative align-items-center">
+                        <input type="text" id="input-buscador" class="form-control bg-dark text-white border-secondary" placeholder="Buscar juego..." autocomplete="off" style="min-width: 350px; font-size: 1.1rem; padding: 10px 15px;">
+                        
+                        <button id="btn-buscar" class="btn btn-outline-light ms-2" style="padding: 10px 20px;">Buscar</button>
+                        
+                        <ul id="lista-sugerencias" class="list-group position-absolute w-100 shadow" style="top: 100%; left: 0; display: none; z-index: 1050; max-height: 400px; overflow-y: auto; margin-top: 5px;">
+                        </ul>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="#">Catalogo</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Subastas</a></li>
