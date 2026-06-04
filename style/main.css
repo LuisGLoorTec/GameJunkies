@@ -106,3 +106,10 @@ h1, h2 {
     margin-right: 10px;
     border: 1px solid var(--primary-purple);
 }
+
+/* NUEVO: Insignia de color cian/neón exclusiva para los productos de Merch */
+.badge-merch {
+    background-color: var(--accent-cyan);
+    color: var(--bg-dark);
+    font-weight: bold;
+}

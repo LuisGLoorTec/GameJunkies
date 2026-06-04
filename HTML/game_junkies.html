@@ -9,81 +9,77 @@
     <link rel="stylesheet" href="../style/main.css">
 </head>
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-custom py-3">
-        <div class="container">
-            <a class="navbar-brand text-white d-flex flex-column lh-1" href="#">
-                <span>GAME</span>
-                <span>JUNKIES</span>
-            </a>
-            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarPrincipal" aria-controls="navbarPrincipal" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="navbarPrincipal">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
-                    
-                    <li class="nav-item me-3 d-flex position-relative align-items-center">
-                        <input type="text" id="input-buscador" class="form-control bg-dark text-white border-secondary" placeholder="Buscar juego..." autocomplete="off" style="min-width: 350px; font-size: 1.1rem; padding: 10px 15px;">
-                        
-                        <button id="btn-buscar" class="btn btn-outline-light ms-2" style="padding: 10px 20px;">Buscar</button>
-                        
-                        <ul id="lista-sugerencias" class="list-group position-absolute w-100 shadow" style="top: 100%; left: 0; display: none; z-index: 1050; max-height: 400px; overflow-y: auto; margin-top: 5px;">
-                        </ul>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="#">Catalogo</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Subastas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Perfil</a></li>
-                    <li class="nav-item ms-2">
-                        <a class="btn btn-outline-light btn-sm" href="#">Carrito (0)</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <main class="container mt-4">
-        <h1 class="text-center">Bienvenido a GameJunkies</h1>
-    </main>
+<nav class="navbar navbar-expand-lg navbar-custom py-3">         
+        <div class="container">             
+            <a class="navbar-brand text-white d-flex flex-column lh-1" href="#">                 
+                <span>GAME</span>                 
+                <span>JUNKIES</span>             
+            </a>                          
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarPrincipal" aria-controls="navbarPrincipal" aria-expanded="false" aria-label="Toggle navigation">                 
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>             
+            </button>                          
+            <div class="collapse navbar-collapse" id="navbarPrincipal">                 
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">                                          
+                    <li class="nav-item me-3 d-flex position-relative align-items-center">                         
+                        <input type="text" id="input-buscador" class="form-control bg-dark text-white border-secondary" placeholder="Buscar juego..." autocomplete="off" style="min-width: 350px; font-size: 1.1rem; padding: 10px 15px;">                                                  
+                        <button id="btn-buscar" class="btn btn-outline-light ms-2" style="padding: 10px 20px;">Buscar</button>                                                  
+                        <ul id="lista-sugerencias" class="list-group position-absolute w-100 shadow" style="top: 100%; left: 0; display: none; z-index: 1050; max-height: 400px; overflow-y: auto; margin-top: 5px;">                         
+                        </ul>                     
+                    </li>                     
+                    <li class="nav-item"><a class="nav-link" href="#">Catalogo</a></li>                     
+                    <li class="nav-item"><a class="nav-link" href="#">Subastas</a></li>                     
+                    <li class="nav-item"><a class="nav-link" href="#">Perfil</a></li>                     
+                    <li class="nav-item ms-2">                         
+                        <a class="btn btn-outline-light btn-sm" href="#">Carrito (0)</a>                     
+                    </li>                 
+                </ul>             
+            </div>         
+        </div>     
+    </nav>     
+    <main class="container mt-4">         
+        <h1 class="text-center">Bienvenido a GameJunkies</h1>     
+    </main>          
     
-    <div id="carruselJuegos" class="carousel slide mb-5" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-        </div>
+    <div id="carruselJuegos" class="carousel slide mb-5" data-bs-ride="carousel">         
+        <div class="carousel-indicators">         
+        </div>                  
+        <div class="carousel-inner rounded shadow-sm">         
+        </div>                  
+        <button class="carousel-control-prev" type="button" data-bs-target="#carruselJuegos" data-bs-slide="prev">             
+            <span class="carousel-control-prev-icon"></span>         
+        </button>         
+        <button class="carousel-control-next" type="button" data-bs-target="#carruselJuegos" data-bs-slide="next">             
+            <span class="carousel-control-next-icon"></span>         
+        </button>     
+    </div>     
+    
+    <div class="container">         
+        <div class="row mb-4 align-items-center">             
+            <div class="col-md-8">                 
+                <h2 id="titulo-catalogo" class="mb-0">Video Juegos Destacados</h2>             
+            </div>             
+            <div class="col-md-4">                 
+                <!-- ACTIALIZACIÓN: Se agregó el id="filtro-categoria" al select -->
+                <select id="filtro-categoria" class="form-select bg-dark text-white border-secondary">                     
+                    <option value="todos">Todos los generos</option>                     
+                    <option value="accion">Accion</option>                     
+                    <option value="rpg">RPG</option>                     
+                    <option value="shooter">Shooter</option>                     
+                    <option value="merch">Merch & Ropa</option>                 
+                </select>             
+            </div>         
+        </div>         
         
-        <div class="carousel-inner rounded shadow-sm">
-        </div>
+        <!-- Contenedor original para la API de RAWG -->
+        <div id="contenedor-juegos-grilla" class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 mb-5">         
+        </div>     
         
-        <button class="carousel-control-prev" type="button" data-bs-target="#carruselJuegos" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carruselJuegos" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-        </button>
-    </div>
-
-    <div class="container">
-        <div class="row mb-4 align-items-center">
-            <div class="col-md-8">
-                <h2 id="titulo-catalogo" class="mb-0">Video Juegos Destacados</h2>
-            </div>
-            <div class="col-md-4">
-                <select class="form-select bg-dark text-white border-secondary">
-                    <option value="todos">Todos los generos</option>
-                    <option value="accion">Accion</option>
-                    <option value="rpg">RPG</option>
-                    <option value="shooter">Shooter</option>
-                    <option value="merch">Merch & Ropa</option>
-                </select>
-            </div>
+        <!-- NUEVO: Contenedor para la Grilla de Merch (oculto por defecto) -->
+        <div id="contenedor-merch-grilla" class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 mb-5" style="display: none;">
         </div>
 
-        <div id="contenedor-juegos-grilla" class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 mb-5">
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../JavaScript/api_rawg.js"></script>
-
-</body>
+    </div>     
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>     
+    <script src="../JavaScript/api_rawg.js"></script> 
+</body> 
 </html>
