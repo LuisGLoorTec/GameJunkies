@@ -51,9 +51,10 @@ function renderizarCarrusel(juegos) {
 function renderizarGrilla(juegos) {
     const contenedorGrilla = document.getElementById('contenedor-juegos-grilla');
     contenedorGrilla.innerHTML = ''; 
+    
     juegos.forEach(juego => {
-
         const precioAleatorio = (Math.random() * (69.99 - 19.99) + 19.99).toFixed(2);
+        
         const tarjetaHtml = `
             <div class="col">
                 <div class="card card-game h-100">
@@ -64,7 +65,7 @@ function renderizarGrilla(juegos) {
                             <span class="badge bg-secondary">⭐ ${juego.rating}</span>
                             <span class="text-precio fw-bold fs-5">$${precioAleatorio}</span>
                         </div>
-                        <button class="btn btn-gaming mt-auto w-100">Ver Detalles</button>
+                        <button class="btn btn-gaming mt-auto w-100" onclick="window.location.href='detalles.html?id=${juego.id}'">Ver Detalles</button>
                     </div>
                 </div>
             </div>
@@ -136,10 +137,9 @@ function mostrarSugerencias(juegos) {
             <span class="text-truncate fw-bold">${juego.name}</span>
         `;
 
+
         li.addEventListener('click', () => {
-            inputBuscador.value = juego.name; 
-            listaSugerencias.style.display = 'none'; 
-            ejecutarBusqueda(juego.name); 
+            window.location.href = `detalles.html?id=${juego.id}`; 
         });
 
         listaSugerencias.appendChild(li);
@@ -147,12 +147,6 @@ function mostrarSugerencias(juegos) {
 
     listaSugerencias.style.display = 'block'; 
 }
-
-document.addEventListener('click', (evento) => {
-    if (!inputBuscador.contains(evento.target) && !listaSugerencias.contains(evento.target)) {
-        listaSugerencias.style.display = 'none';
-    }
-});
 
 function ejecutarBusqueda(termino) {
     const urlBusqueda = `https://api.rawg.io/api/games?key=${apiKeyRawg}&search=${termino}&page_size=8`;
