@@ -210,3 +210,19 @@ h1, h2, h3, h4, h5, h6 {
     color: #fff;
     font-weight: bold;
 }
+
+/* Modales Custom (Modo oscuro por defecto, adaptado a claro) */
+.custom-modal {
+    background-color: var(--panel-oscuro);
+    color: var(--texto-principal);
+    border: 1px solid var(--borde-sutil);
+    border-radius: 12px;
+}
+
+.custom-modal .btn-close-custom {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+body.light-mode .custom-modal .btn-close-custom {
+    filter: invert(0);
+}

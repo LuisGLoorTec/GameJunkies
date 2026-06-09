@@ -27,7 +27,7 @@ function cargarNavbar() {
                     <button id="btn-tema" class="btn btn-outline-light rounded-circle" title="Cambiar Tema" style="width: 40px; height: 40px; display:flex; align-items:center; justify-content:center;">
                         🌓
                     </button>
-                    <a class="btn btn-secundario" href="Login.html">Iniciar Sesión</a>
+                    <button type="button" class="btn btn-secundario" data-bs-toggle="modal" data-bs-target="#modalLogin">Iniciar Sesión</button>
                     <a class="btn btn-principal" href="Registro.html">Registrarse</a>
                     <a class="btn btn-outline-warning ms-2" href="Carrito.html">🛒 (0)</a>
                 </div>
@@ -35,6 +35,36 @@ function cargarNavbar() {
         </div>     
     </nav>
     <div style="height: 80px;"></div> <!-- Espaciador -->
+
+    <!-- Modal Login Rápido -->
+    <div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="modalLoginLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content custom-modal">
+                <div class="modal-header border-bottom-0 pb-0">
+                    <h5 class="modal-title fw-bold" id="modalLoginLabel">Iniciar Sesión Rápido</h5>
+                    <button type="button" class="btn-close btn-close-custom" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-login-rapido">
+                        <div class="mb-3">
+                            <label for="login-email" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control input-busqueda" id="login-email" placeholder="usuario@ejemplo.com" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="login-password" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control input-busqueda" id="login-password" placeholder="********" required>
+                        </div>
+                        <button type="submit" class="btn btn-principal w-100 mb-3">Ingresar</button>
+                    </form>
+                    <div class="text-center text-muted">
+                        ¿No tienes cuenta? <a href="Registro.html" class="text-decoration-none" style="color: var(--color-principal);">Regístrate aquí</a>
+                        <br><br>
+                        <a href="Login.html" class="text-decoration-none" style="font-size: 0.85rem; color: var(--texto-apagado);">Ir a pantalla completa de login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     `;
 
     // Inyectar al principio del body
