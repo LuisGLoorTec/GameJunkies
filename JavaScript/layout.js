@@ -69,6 +69,53 @@ function cargarNavbar() {
 
     // Inyectar al principio del body
     document.body.insertAdjacentHTML('afterbegin', navbarHTML);
+
+    // Contenedor para Notificaciones Toast
+    const toastContainerHTML = `
+    <div id="toast-container" class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1080;">
+    </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', toastContainerHTML);
+}
+
+// Función global para mostrar notificaciones Toast (Funcionalidad #11)
+window.mostrarToast = function(mensaje, tipo = 'info') {
+    const toastContainer = document.getElementById('toast-container');
+    if (!toastContainer) return;
+
+    const toastId = 'toast-' + Date.now();
+    let borderClass = 'toast-info';
+    let icon = 'ℹ️';
+
+    if (tipo === 'success') {
+        borderClass = 'toast-success';
+        icon = '✅';
+    } else if (tipo === 'error') {
+        borderClass = 'toast-error';
+        icon = '❌';
+    }
+
+    const toastHTML = `
+        <div id="${toastId}" class="toast toast-custom ${borderClass} mb-3" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex align-items-center">
+                <div class="toast-body d-flex align-items-center gap-2">
+                    <span style="font-size: 1.2rem;">${icon}</span>
+                    <span>${mensaje}</span>
+                </div>
+                <button type="button" class="btn-close btn-close-white me-3 m-auto btn-close-custom" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    `;
+    
+    toastContainer.insertAdjacentHTML('beforeend', toastHTML);
+    
+    const toastElement = document.getElementById(toastId);
+    const toast = new bootstrap.Toast(toastElement, { delay: 3000 });
+    toast.show();
+    
+    toastElement.addEventListener('hidden.bs.toast', () => {
+        toastElement.remove();
+    });
 }
 
 // Ejecutar cuando el DOM esté listo
@@ -94,9 +141,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (document.body.classList.contains('light-mode')) {
             localStorage.setItem('tema', 'claro');
             btnTema.textContent = '🌙';
+            mostrarToast('Modo claro activado', 'success');
         } else {
             localStorage.setItem('tema', 'oscuro');
             btnTema.textContent = '☀️';
+            mostrarToast('Modo oscuro activado', 'success');
         }
     });
+
+    // Interceptar login rápido para mostrar toast de sesión iniciada (simulación)
+    const formLoginRapido = document.getElementById('form-login-rapido');
+    if (formLoginRapido) {
+        formLoginRapido.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const modal = bootstrap.Modal.getInstance(document.getElementById('modalLogin'));
+            if (modal) modal.hide();
+            mostrarToast('Sesión iniciada correctamente', 'success');
+        });
+    }
 });

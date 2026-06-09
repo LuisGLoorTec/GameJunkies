@@ -252,3 +252,34 @@ body.light-mode .navbar-toggler-icon-custom {
 body.light-mode .custom-modal .btn-close-custom {
     filter: invert(0);
 }
+
+/* Notificaciones Toast (Funcionalidad #11) */
+.toast-custom {
+    background-color: var(--panel-oscuro);
+    color: var(--texto-principal);
+    border-left: 4px solid var(--color-principal);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    overflow: hidden;
+}
+
+.toast-custom.toast-success {
+    border-left-color: var(--color-exito);
+}
+
+.toast-custom.toast-error {
+    border-left-color: #f44336; /* Red for error */
+}
+
+.toast-custom.toast-info {
+    border-left-color: var(--color-principal);
+}
+
+.toast-custom .toast-body {
+    padding: 12px 16px;
+    font-weight: 600;
+}
+
+body.light-mode .toast-custom {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
