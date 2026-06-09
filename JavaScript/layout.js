@@ -3,11 +3,11 @@ function cargarNavbar() {
     const navbarHTML = `
     <nav class="navbar navbar-expand-lg navbar-custom py-3 fixed-top">         
         <div class="container-fluid px-4">             
-            <a class="navbar-brand text-white d-flex align-items-center" href="GameJunkies.html">                 
+            <a class="navbar-brand d-flex align-items-center" href="GameJunkies.html">                 
                 <span>GAME</span><span class="marca-resaltada">JUNKIES</span>             
             </a>                          
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarPrincipal" aria-controls="navbarPrincipal" aria-expanded="false" aria-label="Toggle navigation">                 
-                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>             
+                <span class="navbar-toggler-icon navbar-toggler-icon-custom"></span>             
             </button>                          
             <div class="collapse navbar-collapse" id="navbarPrincipal">                 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center ms-4">                                          
@@ -24,7 +24,7 @@ function cargarNavbar() {
                 </div>
 
                 <div class="d-flex gap-2 align-items-center">
-                    <button id="btn-tema" class="btn btn-outline-light rounded-circle" title="Cambiar Tema" style="width: 40px; height: 40px; display:flex; align-items:center; justify-content:center;">
+                    <button id="btn-tema" class="btn btn-tema-custom rounded-circle" title="Cambiar Tema" style="width: 40px; height: 40px; display:flex; align-items:center; justify-content:center;">
                         🌓
                     </button>
                     <button type="button" class="btn btn-secundario" data-bs-toggle="modal" data-bs-target="#modalLogin">Iniciar Sesión</button>

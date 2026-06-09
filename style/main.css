@@ -10,6 +10,7 @@
     --texto-apagado: #a0a5b5;
     --borde-sutil: #222222;
     --color-exito: #41bb42; /* Verde de la paleta */
+    --navbar-bg: rgba(5, 5, 8, 0.9);
 }
 
 /* MODO CLARO (Sobrescribe las variables con temática EVA-02) */
@@ -25,6 +26,7 @@ body.light-mode {
     --color-secundario: #ff9800; /* Naranja/Amarillo fuerte */
     --color-naranja: #e65100; /* Naranja oscuro para los precios */
     --color-exito: #fbc02d; /* Amarillo oro para las insignias */
+    --navbar-bg: rgba(255, 255, 255, 0.9);
 }
 
 body {
@@ -46,12 +48,13 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Navbar Estilo AnkerGames */
 .navbar-custom {
-    background-color: rgba(5, 5, 8, 0.9) !important;
+    background-color: var(--navbar-bg) !important;
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--borde-sutil);
 }
 
 .navbar-brand {
+    color: var(--texto-principal) !important;
     font-weight: 800;
     font-size: 1.5rem;
     letter-spacing: 1px;
@@ -103,6 +106,29 @@ h1, h2, h3, h4, h5, h6 {
 .btn-secundario:hover {
     border-color: var(--color-principal);
     color: var(--color-principal);
+}
+
+/* Botón Tema Custom */
+.btn-tema-custom {
+    border: 1px solid var(--borde-sutil);
+    color: var(--texto-principal);
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.btn-tema-custom:hover {
+    background-color: var(--color-principal);
+    color: #fff;
+    border-color: var(--color-principal);
+}
+
+/* Icono Toggler Custom */
+.navbar-toggler-icon-custom {
+    filter: invert(1);
+}
+
+body.light-mode .navbar-toggler-icon-custom {
+    filter: invert(0);
 }
 
 /* Carrusel (Hero Section) */
