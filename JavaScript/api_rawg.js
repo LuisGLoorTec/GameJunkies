@@ -36,11 +36,16 @@ function renderizarCarrusel(juegos) {
         carruselIndicators.innerHTML += botonIndicador;
         
         const itemCarrusel = `
-            <div class="carousel-item ${esActivo}">
-                <img src="${juego.background_image}" class="d-block w-100" alt="${juego.name}" style="height: 400px; object-fit: cover; filter: brightness(0.7);">
-                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 rounded p-2">
-                    <h5>${juego.name}</h5>
-                    <p>Rating: ⭐ ${juego.rating}</p>
+            <div class="carousel-item ${esActivo}" style="height: 600px;">
+                <img src="${juego.background_image}" class="d-block w-100 h-100" alt="${juego.name}" style="object-fit: cover;">
+                <div class="carrusel-degradado"></div>
+                <div class="carousel-caption d-none d-md-block">
+                    <span class="insignia-hero mb-3 d-inline-block">V ${juego.rating}</span>
+                    <h5 class="titulo-hero">${juego.name}</h5>
+                    <div class="d-flex gap-3 mt-4">
+                        <button class="btn btn-principal btn-lg" onclick="window.location.href='detalles.html?id=${juego.id}'">Comprar Ahora 🛒</button>
+                        <button class="btn btn-secundario btn-lg" onclick="window.location.href='detalles.html?id=${juego.id}'">Ver Detalles ➔</button>
+                    </div>
                 </div>
             </div>
         `;
@@ -58,14 +63,16 @@ function renderizarGrilla(juegos) {
         const tarjetaHtml = `
             <div class="col">
                 <div class="card card-game h-100">
-                    <img src="${juego.background_image}" class="card-img-top img-poster" alt="${juego.name}">
-                    <div class="card-body d-flex flex-column text-center">
-                        <h6 class="card-title text-truncate fw-bold text-white" title="${juego.name}">${juego.name}</h6>
-                        <div class="d-flex justify-content-between align-items-center mt-2 mb-3">
-                            <span class="badge bg-secondary">⭐ ${juego.rating}</span>
-                            <span class="text-precio fw-bold fs-5">$${precioAleatorio}</span>
+                    <div class="position-relative">
+                        <img src="${juego.background_image}" class="card-img-top img-poster w-100" alt="${juego.name}">
+                        <span class="position-absolute top-0 end-0 m-2 badge bg-dark border border-secondary">⭐ ${juego.rating}</span>
+                    </div>
+                    <div class="card-body d-flex flex-column text-start">
+                        <h6 class="card-title text-truncate mb-3" title="${juego.name}">${juego.name}</h6>
+                        <div class="mt-auto d-flex justify-content-between align-items-center">
+                            <span class="text-precio fs-5">$${precioAleatorio}</span>
+                            <button class="btn btn-principal btn-sm" onclick="window.location.href='detalles.html?id=${juego.id}'">Ver ➔</button>
                         </div>
-                        <button class="btn btn-gaming mt-auto w-100" onclick="window.location.href='detalles.html?id=${juego.id}'">Ver Detalles</button>
                     </div>
                 </div>
             </div>
@@ -76,48 +83,60 @@ function renderizarGrilla(juegos) {
 
 cargarDatosRawg();
 
-const inputBuscador = document.getElementById('input-buscador');
-const btnBuscar = document.getElementById('btn-buscar');
+cargarDatosRawg();
+
+let inputBuscador, btnBuscar, listaSugerencias;
 const tituloCatalogo = document.getElementById('titulo-catalogo');
-const listaSugerencias = document.getElementById('lista-sugerencias'); 
 let temporizadorBusqueda; 
 
+document.addEventListener('DOMContentLoaded', () => {
+    // Retrasar levemente la asignación para asegurar que layout.js inyectó el HTML
+    setTimeout(() => {
+        inputBuscador = document.getElementById('input-buscador');
+        btnBuscar = document.getElementById('btn-buscar');
+        listaSugerencias = document.getElementById('lista-sugerencias'); 
 
-btnBuscar.addEventListener('click', () => {
-    const termino = inputBuscador.value.trim();
-    if (termino !== '') {
-        ejecutarBusqueda(termino);
-    }
-});
-
-inputBuscador.addEventListener('keypress', (evento) => {
-    if (evento.key === 'Enter') {
-        evento.preventDefault();
-        const termino = inputBuscador.value.trim();
-        if (termino !== '') {
-            ejecutarBusqueda(termino);
+        if(btnBuscar) {
+            btnBuscar.addEventListener('click', () => {
+                const termino = inputBuscador.value.trim();
+                if (termino !== '') {
+                    ejecutarBusqueda(termino);
+                }
+            });
         }
-    }
-});
 
-inputBuscador.addEventListener('input', () => {
-    const termino = inputBuscador.value.trim();
+        if(inputBuscador) {
+            inputBuscador.addEventListener('keypress', (evento) => {
+                if (evento.key === 'Enter') {
+                    evento.preventDefault();
+                    const termino = inputBuscador.value.trim();
+                    if (termino !== '') {
+                        ejecutarBusqueda(termino);
+                    }
+                }
+            });
 
-    clearTimeout(temporizadorBusqueda);
+            inputBuscador.addEventListener('input', () => {
+                const termino = inputBuscador.value.trim();
 
-    if (termino === '') {
-        listaSugerencias.style.display = 'none';
-        return;
-    }
+                clearTimeout(temporizadorBusqueda);
 
-    temporizadorBusqueda = setTimeout(() => {
-        const urlSugerencias = `https://api.rawg.io/api/games?key=${apiKeyRawg}&search=${termino}&page_size=5`;
+                if (termino === '') {
+                    listaSugerencias.style.display = 'none';
+                    return;
+                }
 
-        fetch(urlSugerencias)
-            .then(response => response.json())
-            .then(respuesta => mostrarSugerencias(respuesta.results))
-            .catch(error => console.log(error));
-    }, 400); 
+                temporizadorBusqueda = setTimeout(() => {
+                    const urlSugerencias = `https://api.rawg.io/api/games?key=${apiKeyRawg}&search=${termino}&page_size=5`;
+
+                    fetch(urlSugerencias)
+                        .then(response => response.json())
+                        .then(respuesta => mostrarSugerencias(respuesta.results))
+                        .catch(error => console.log(error));
+                }, 400); 
+            });
+        }
+    }, 100);
 });
 
 function mostrarSugerencias(juegos) {
@@ -263,14 +282,16 @@ function renderizarMerch(productos) {
         const tarjetaMerchHtml = `
             <div class="col">
                 <div class="card card-game h-100">
-                    <img src="${producto.image}" class="card-img-top img-poster" alt="${producto.name}">
-                    <div class="card-body d-flex flex-column text-center">
-                        <h6 class="card-title text-truncate fw-bold text-white" title="${producto.name}">${producto.name}</h6>
-                        <div class="d-flex justify-content-between align-items-center mt-2 mb-3">
-                            <span class="badge badge-merch">${producto.category}</span>
-                            <span class="text-precio fw-bold fs-5">$${producto.price}</span>
+                    <div class="position-relative">
+                        <img src="${producto.image}" class="card-img-top img-poster w-100" alt="${producto.name}">
+                        <span class="position-absolute top-0 end-0 m-2 badge badge-merch">${producto.category}</span>
+                    </div>
+                    <div class="card-body d-flex flex-column text-start">
+                        <h6 class="card-title text-truncate mb-3" title="${producto.name}">${producto.name}</h6>
+                        <div class="mt-auto d-flex justify-content-between align-items-center">
+                            <span class="text-precio fs-5">$${producto.price}</span>
+                            <button class="btn btn-principal btn-sm">Añadir 🛒</button>
                         </div>
-                        <button class="btn btn-gaming mt-auto w-100">Comprar Artículo</button>
                     </div>
                 </div>
             </div>
