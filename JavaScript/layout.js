@@ -79,7 +79,7 @@ function cargarNavbar() {
 }
 
 // Función global para mostrar notificaciones Toast (Funcionalidad #11)
-window.mostrarToast = function(mensaje, tipo = 'info') {
+window.mostrarToast = function (mensaje, tipo = 'info') {
     const toastContainer = document.getElementById('toast-container');
     if (!toastContainer) return;
 
@@ -106,13 +106,13 @@ window.mostrarToast = function(mensaje, tipo = 'info') {
             </div>
         </div>
     `;
-    
+
     toastContainer.insertAdjacentHTML('beforeend', toastHTML);
-    
+
     const toastElement = document.getElementById(toastId);
     const toast = new bootstrap.Toast(toastElement, { delay: 3000 });
     toast.show();
-    
+
     toastElement.addEventListener('hidden.bs.toast', () => {
         toastElement.remove();
     });
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Lógica para Modo Claro / Oscuro
     const btnTema = document.getElementById('btn-tema');
-    
+
     // Revisar si hay un tema guardado
     const temaGuardado = localStorage.getItem('tema');
     if (temaGuardado === 'claro') {
@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Evento de click para alternar
     btnTema.addEventListener('click', () => {
         document.body.classList.toggle('light-mode');
-        
+
         if (document.body.classList.contains('light-mode')) {
             localStorage.setItem('tema', 'claro');
             btnTema.textContent = '🌙';
@@ -149,14 +149,67 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Interceptar login rápido para mostrar toast de sesión iniciada (simulación)
+    // Interceptar login rápido para validar con localStorage
     const formLoginRapido = document.getElementById('form-login-rapido');
     if (formLoginRapido) {
         formLoginRapido.addEventListener('submit', (e) => {
             e.preventDefault();
-            const modal = bootstrap.Modal.getInstance(document.getElementById('modalLogin'));
-            if (modal) modal.hide();
-            mostrarToast('Sesión iniciada correctamente', 'success');
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+            
+            let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+            const usuarioValido = usuarios.find(u => u.email === email && u.password === password);
+            
+            if (usuarioValido) {
+                localStorage.setItem('usuarioActual', JSON.stringify(usuarioValido));
+                mostrarToast('Sesión iniciada correctamente', 'success');
+                
+                const modal = bootstrap.Modal.getInstance(document.getElementById('modalLogin'));
+                if (modal) modal.hide();
+                
+                actualizarNavbarAuth();
+            } else {
+                mostrarToast('Credenciales incorrectas', 'error');
+            }
         });
     }
+
+    // Comprobar sesión activa al cargar la página
+    actualizarNavbarAuth();
 });
+
+// Función para actualizar visualmente el navbar
+function actualizarNavbarAuth() {
+    const usuarioActual = JSON.parse(localStorage.getItem('usuarioActual'));
+    
+    const btnLogin = document.querySelector('[data-bs-target="#modalLogin"]');
+    const btnRegistro = document.querySelector('a[href="Registro.html"]');
+    
+    if (usuarioActual && btnLogin && btnRegistro) {
+        const parent = btnLogin.parentElement;
+        
+        let authContainer = document.getElementById('auth-logged-in');
+        if (!authContainer) {
+            authContainer = document.createElement('div');
+            authContainer.className = 'd-flex align-items-center gap-2';
+            authContainer.id = 'auth-logged-in';
+            
+            const carrito = document.querySelector('a[href="Carrito.html"]');
+            parent.insertBefore(authContainer, carrito);
+        }
+        
+        authContainer.innerHTML = `
+            <span class="text-white me-2 fw-bold">Hola, ${usuarioActual.nombre.split(' ')[0]}</span>
+            <a href="Perfil.html" class="btn btn-outline-light btn-sm">Mi Perfil</a>
+            <button id="btn-logout" class="btn btn-danger btn-sm">Salir</button>
+        `;
+        
+        btnLogin.style.display = 'none';
+        btnRegistro.style.display = 'none';
+        
+        document.getElementById('btn-logout').addEventListener('click', () => {
+            localStorage.removeItem('usuarioActual');
+            window.location.reload();
+        });
+    }
+}
