@@ -176,10 +176,15 @@ body.light-mode .navbar-toggler-icon-custom {
 /* Tarjetas de Juegos */
 .card-game {
     background-color: var(--panel-oscuro);
+    color: var(--texto-principal) !important;
     border: 1px solid var(--borde-sutil);
     border-radius: 12px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
+}
+
+.card-game .card-title, .card-game .card-body {
+    color: var(--texto-principal) !important;
 }
 
 .card-game:hover {
@@ -282,4 +287,27 @@ body.light-mode .custom-modal .btn-close-custom {
 
 body.light-mode .toast-custom {
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
+}
+
+/* Pestañas (Tabs) Custom para Detalles.html */
+.custom-tabs {
+    border-bottom-color: var(--borde-sutil);
+}
+
+.custom-tabs .nav-link {
+    color: var(--texto-apagado) !important;
+    border-color: transparent;
+    font-weight: 600;
+}
+
+.custom-tabs .nav-link:hover {
+    border-color: transparent transparent var(--borde-sutil) transparent;
+    color: var(--texto-principal) !important;
+}
+
+.custom-tabs .nav-link.active {
+    background-color: var(--panel-oscuro) !important;
+    color: var(--color-principal) !important;
+    border-color: var(--borde-sutil) var(--borde-sutil) var(--panel-oscuro) !important;
+}
+
