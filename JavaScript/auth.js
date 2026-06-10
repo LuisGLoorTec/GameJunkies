@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // ====== REGISTRO ======
+    // ====== REGISTRO PANTALLA COMPLETA ======
     const formRegistro = document.getElementById('form-registro');
     if (formRegistro) {
         formRegistro.addEventListener('submit', (e) => {
@@ -16,30 +16,60 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             
-            // Obtener usuarios existentes
-            let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+            procesarRegistro(nombre, email, password);
+        });
+    }
+
+    // ====== REGISTRO MODAL RÁPIDO ======
+    const formRegistroRapido = document.getElementById('form-registro-rapido');
+    if (formRegistroRapido) {
+        formRegistroRapido.addEventListener('submit', (e) => {
+            e.preventDefault();
             
-            // Verificar si el email ya existe
-            const existe = usuarios.find(u => u.email === email);
-            if (existe) {
-                if(window.mostrarToast) window.mostrarToast('Este correo ya está registrado', 'error');
-                return;
+            const nombre = document.getElementById('reg-rapido-nombre').value.trim();
+            const email = document.getElementById('reg-rapido-email').value.trim();
+            const password = document.getElementById('reg-rapido-password').value;
+            
+            // Aquí no hay confirmación de contraseña para que sea rápido, solo procesamos
+            procesarRegistro(nombre, email, password, true);
+        });
+    }
+
+    // Función auxiliar compartida para registrar
+    function procesarRegistro(nombre, email, password, esModal = false) {
+        // Obtener usuarios existentes
+        let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+        
+        // Verificar si el email ya existe
+        const existe = usuarios.find(u => u.email === email);
+        if (existe) {
+            if(window.mostrarToast) window.mostrarToast('Este correo ya está registrado', 'error');
+            return;
+        }
+        
+        // Guardar nuevo usuario
+        const nuevoUsuario = { nombre, email, password };
+        usuarios.push(nuevoUsuario);
+        localStorage.setItem('usuarios', JSON.stringify(usuarios));
+        
+        // Autenticar automáticamente
+        localStorage.setItem('usuarioActual', JSON.stringify(nuevoUsuario));
+        
+        if(window.mostrarToast) window.mostrarToast('Registro exitoso', 'success');
+        
+        if (esModal) {
+            // Cerrar modal
+            const modalEl = document.getElementById('modalRegistro');
+            if(modalEl) {
+                const modal = bootstrap.Modal.getInstance(modalEl);
+                if (modal) modal.hide();
             }
-            
-            // Guardar nuevo usuario
-            const nuevoUsuario = { nombre, email, password };
-            usuarios.push(nuevoUsuario);
-            localStorage.setItem('usuarios', JSON.stringify(usuarios));
-            
-            // Autenticar automáticamente
-            localStorage.setItem('usuarioActual', JSON.stringify(nuevoUsuario));
-            
-            if(window.mostrarToast) window.mostrarToast('Registro exitoso. Redirigiendo...', 'success');
-            
+            if (window.actualizarNavbarAuth) window.actualizarNavbarAuth();
+        } else {
             setTimeout(() => {
                 window.location.href = 'GameJunkies.html';
-            }, 1500);
-        });
+            }, 1000);
+        }
     }
 
     // ====== LOGIN PANTALLA COMPLETA ======

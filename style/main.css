@@ -242,7 +242,7 @@ body.light-mode .navbar-toggler-icon-custom {
     font-weight: bold;
 }
 
-/* Modales Custom (Modo oscuro por defecto, adaptado a claro) */
+/* Modales Custom y Toast (Modo oscuro por defecto, adaptado a claro) */
 .custom-modal {
     background-color: var(--panel-oscuro);
     color: var(--texto-principal);
@@ -250,11 +250,11 @@ body.light-mode .navbar-toggler-icon-custom {
     border-radius: 12px;
 }
 
-.custom-modal .btn-close-custom {
+.custom-modal .btn-close-custom, .toast-custom .btn-close-custom {
     filter: invert(1) grayscale(100%) brightness(200%);
 }
 
-body.light-mode .custom-modal .btn-close-custom {
+body.light-mode .custom-modal .btn-close-custom, body.light-mode .toast-custom .btn-close-custom {
     filter: invert(0);
 }
 

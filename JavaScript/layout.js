@@ -28,7 +28,7 @@ function cargarNavbar() {
                         🌓
                     </button>
                     <button type="button" class="btn btn-secundario" data-bs-toggle="modal" data-bs-target="#modalLogin">Iniciar Sesión</button>
-                    <a class="btn btn-principal" href="Registro.html">Registrarse</a>
+                    <button type="button" class="btn btn-principal" data-bs-toggle="modal" data-bs-target="#modalRegistro">Registrarse</button>
                     <a class="btn btn-outline-warning ms-2" href="Carrito.html">🛒 (0)</a>
                 </div>
             </div>         
@@ -57,9 +57,43 @@ function cargarNavbar() {
                         <button type="submit" class="btn btn-principal w-100 mb-3">Ingresar</button>
                     </form>
                     <div class="text-center text-muted">
-                        ¿No tienes cuenta? <a href="Registro.html" class="text-decoration-none" style="color: var(--color-principal);">Regístrate aquí</a>
+                        ¿No tienes cuenta? <a href="#" data-bs-toggle="modal" data-bs-target="#modalRegistro" data-bs-dismiss="modal" class="text-decoration-none" style="color: var(--color-principal);">Regístrate aquí</a>
                         <br><br>
                         <a href="Login.html" class="text-decoration-none" style="font-size: 0.85rem; color: var(--texto-apagado);">Ir a pantalla completa de login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Registro Rápido -->
+    <div class="modal fade" id="modalRegistro" tabindex="-1" aria-labelledby="modalRegistroLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content custom-modal">
+                <div class="modal-header border-bottom-0 pb-0">
+                    <h5 class="modal-title fw-bold" id="modalRegistroLabel">Únete a GameJunkies</h5>
+                    <button type="button" class="btn-close btn-close-custom" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-registro-rapido">
+                        <div class="mb-3">
+                            <label for="reg-rapido-nombre" class="form-label">Nombre Completo</label>
+                            <input type="text" class="form-control input-busqueda" id="reg-rapido-nombre" placeholder="Ej: Juan Pérez" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reg-rapido-email" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control input-busqueda" id="reg-rapido-email" placeholder="usuario@ejemplo.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reg-rapido-password" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control input-busqueda" id="reg-rapido-password" placeholder="Mínimo 6 caracteres" required minlength="6">
+                        </div>
+                        <button type="submit" class="btn btn-principal w-100 mb-3">Crear Cuenta</button>
+                    </form>
+                    <div class="text-center text-muted">
+                        ¿Ya tienes cuenta? <a href="#" data-bs-toggle="modal" data-bs-target="#modalLogin" data-bs-dismiss="modal" class="text-decoration-none" style="color: var(--color-principal);">Inicia Sesión aquí</a>
+                        <br><br>
+                        <a href="Registro.html" class="text-decoration-none" style="font-size: 0.85rem; color: var(--texto-apagado);">Ir a pantalla completa de registro</a>
                     </div>
                 </div>
             </div>
@@ -102,7 +136,7 @@ window.mostrarToast = function (mensaje, tipo = 'info') {
                     <span style="font-size: 1.2rem;">${icon}</span>
                     <span>${mensaje}</span>
                 </div>
-                <button type="button" class="btn-close btn-close-white me-3 m-auto btn-close-custom" data-bs-dismiss="toast" aria-label="Close"></button>
+                <button type="button" class="btn-close me-3 m-auto btn-close-custom" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
     `;
@@ -183,7 +217,7 @@ function actualizarNavbarAuth() {
     const usuarioActual = JSON.parse(localStorage.getItem('usuarioActual'));
     
     const btnLogin = document.querySelector('[data-bs-target="#modalLogin"]');
-    const btnRegistro = document.querySelector('a[href="Registro.html"]');
+    const btnRegistro = document.querySelector('[data-bs-target="#modalRegistro"]');
     
     if (usuarioActual && btnLogin && btnRegistro) {
         const parent = btnLogin.parentElement;
