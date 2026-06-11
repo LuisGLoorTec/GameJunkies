@@ -88,6 +88,10 @@ function cargarNavbar() {
                             <label for="reg-rapido-password" class="form-label">Contraseña</label>
                             <input type="password" class="form-control input-busqueda" id="reg-rapido-password" placeholder="Mínimo 6 caracteres" required minlength="6">
                         </div>
+                        <div class="mb-3">
+                            <label for="reg-rapido-confirm" class="form-label">Confirmar Contraseña</label>
+                            <input type="password" class="form-control input-busqueda" id="reg-rapido-confirm" placeholder="Repita la contraseña" required minlength="6">
+                        </div>
                         <button type="submit" class="btn btn-principal w-100 mb-3">Crear Cuenta</button>
                     </form>
                     <div class="text-center text-muted">

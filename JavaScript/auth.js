@@ -29,8 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const nombre = document.getElementById('reg-rapido-nombre').value.trim();
             const email = document.getElementById('reg-rapido-email').value.trim();
             const password = document.getElementById('reg-rapido-password').value;
+            const confirm = document.getElementById('reg-rapido-confirm').value;
             
-            // Aquí no hay confirmación de contraseña para que sea rápido, solo procesamos
+            if (password !== confirm) {
+                if(window.mostrarToast) window.mostrarToast('Las contraseñas no coinciden', 'error');
+                return;
+            }
+            
             procesarRegistro(nombre, email, password, true);
         });
     }
