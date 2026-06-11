@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameJunkies | Contacto</title>
+    <link rel="icon" href="../img/icon/espada.png" type="image/png">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../style/main.css">
+    <style>
+        .contact-panel {
+            background-color: var(--panel-oscuro);
+            border: 1px solid var(--borde-sutil);
+            border-radius: 15px;
+            padding: 40px;
+        }
+        .info-box {
+            background-color: var(--fondo-oscuro);
+            border: 1px solid var(--color-principal);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+        .info-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(118, 88, 153, 0.2);
+        }
+        .info-icon {
+            font-size: 2.5rem;
+            color: var(--color-principal);
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+ 
+    <main class="container px-4 mt-5 pt-4">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h1 class="fw-bold display-4" style="color: var(--color-principal);">Contáctanos</h1>
+                <p class="text-muted fs-5">¿Tienes dudas, problemas técnicos o sugerencias? Estamos aquí para ayudarte.</p>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="info-box">
+                    <div class="info-icon">📍</div>
+                    <h5 class="fw-bold text-white">Nuestra Base</h5>
+                    <p class="text-muted">Av. Gamer 1337<br>Ciudad Pixel, CP 4040</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="info-box">
+                    <div class="info-icon">📧</div>
+                    <h5 class="fw-bold text-white">Correo</h5>
+                    <p class="text-muted">soporte@gamejunkies.com<br>info@gamejunkies.com</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="info-box">
+                    <div class="info-icon">🎮</div>
+                    <h5 class="fw-bold text-white">Discord</h5>
+                    <p class="text-muted">Únete a nuestra comunidad<br><a href="#" style="color: var(--color-secundario);">discord.gg/gamejunkies</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <div class="contact-panel shadow">
+                    <h3 class="mb-4 text-white fw-bold">Envíanos un mensaje</h3>
+                    <form id="form-contacto">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label text-muted">Tu Nombre</label>
+                                <input type="text" class="form-control input-busqueda" placeholder="Ej. MasterChief" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label text-muted">Tu Correo</label>
+                                <input type="email" class="form-control input-busqueda" placeholder="correo@ejemplo.com" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-muted">Asunto</label>
+                            <input type="text" class="form-control input-busqueda" placeholder="Ej. Problema con mi compra" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label text-muted">Mensaje</label>
+                            <textarea class="form-control input-busqueda" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-principal w-100 btn-lg fw-bold">Enviar Mensaje 🚀</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>     
+    <script src="../JavaScript/layout.js"></script>
+    <script src="../JavaScript/carrito.js"></script>
+    <script src="../JavaScript/auth.js"></script>
+    <script>
+        document.getElementById('form-contacto').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if(window.mostrarToast) {
+                window.mostrarToast('¡Mensaje enviado con éxito! Te responderemos pronto.', 'success');
+                this.reset();
+            }
+        });
+    </script>
+</body> 
+</html>

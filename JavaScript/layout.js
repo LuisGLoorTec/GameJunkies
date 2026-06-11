@@ -180,6 +180,7 @@ window.mostrarToast = function (mensaje, tipo = 'info') {
 // Ejecutar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
     cargarNavbar();
+    cargarFooter();
 
     // Lógica para Modo Claro / Oscuro
     const btnTema = document.getElementById('btn-tema');
@@ -252,4 +253,65 @@ function actualizarNavbarAuth() {
             window.location.reload();
         });
     }
+}
+
+// Función para cargar el Footer dinámicamente
+function cargarFooter() {
+    const footerHTML = `
+    <footer class="mt-5 border-top" style="background-color: var(--fondo-oscuro); border-color: var(--borde-sutil) !important;">
+        <div class="container py-5">
+            <div class="row gy-4">
+                <div class="col-lg-4 col-md-6">
+                    <a class="navbar-brand d-flex align-items-center mb-3" href="GameJunkies.html" style="font-size: 1.5rem;">
+                        <span style="color: var(--texto-principal); font-weight: bold;">GAME</span><span class="marca-resaltada">JUNKIES</span>
+                    </a>
+                    <p class="text-muted small mb-4">La tienda definitiva para gamers exigentes. Descubre, compra y juega los mejores títulos en un solo lugar.</p>
+                </div>
+                
+                <div class="col-lg-2 col-md-3 col-6">
+                    <h6 class="text-white fw-bold mb-3">Empresa</h6>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2"><a href="Nosotros.html" class="text-muted text-decoration-none hover-text-principal transition">Sobre Nosotros</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-text-principal transition">Trabaja con Nosotros</a></li>
+                        <li class="mb-2"><a href="Contacto.html" class="text-muted text-decoration-none hover-text-principal transition">Contacto</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-2 col-md-3 col-6">
+                    <h6 class="text-white fw-bold mb-3">Soporte</h6>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-text-principal transition">FAQ</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-text-principal transition">Reembolsos</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-text-principal transition">Reportar un Bug</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-4 col-md-12">
+                    <h6 class="text-white fw-bold mb-3">Comunidad</h6>
+                    <div class="d-flex gap-3 mb-4">
+                        <a href="#" class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center p-0" style="width: 40px; height: 40px;">🐦</a>
+                        <a href="#" class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center p-0" style="width: 40px; height: 40px;">🎮</a>
+                        <a href="#" class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center p-0" style="width: 40px; height: 40px;">📺</a>
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="my-4" style="border-color: var(--borde-sutil);">
+            
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="text-muted small mb-0">© 2024 GameJunkies. Todos los derechos reservados.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-3 mt-md-0 d-flex justify-content-center justify-content-md-end gap-3">
+                    <a href="#" class="text-muted small text-decoration-none hover-text-principal">Privacidad</a>
+                    <a href="#" class="text-muted small text-decoration-none hover-text-principal">Términos Legales</a>
+                    <a href="#" class="text-muted small text-decoration-none hover-text-principal">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    `;
+    
+    // Inyectar justo antes de cerrar el body
+    document.body.insertAdjacentHTML('beforeend', footerHTML);
 }

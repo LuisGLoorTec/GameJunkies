@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameJunkies | Lista de Deseos</title>
+    <link rel="icon" href="../img/icon/espada.png" type="image/png">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../style/main.css">
+    <style>
+        .profile-sidebar {
+            background-color: var(--panel-oscuro);
+            border: 1px solid var(--borde-sutil);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .profile-nav-link {
+            color: var(--texto-apagado);
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+        }
+        .profile-nav-link:hover, .profile-nav-link.active {
+            background-color: var(--fondo-oscuro);
+            color: var(--color-principal);
+            font-weight: bold;
+        }
+        .avatar-container {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: var(--fondo-oscuro);
+            border: 3px solid var(--color-principal);
+            overflow: hidden;
+            margin: 0 auto 20px auto;
+        }
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .deseo-card {
+            background-color: var(--panel-oscuro);
+            border: 1px solid var(--borde-sutil);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .deseo-card:hover {
+            border-color: var(--color-principal);
+            box-shadow: 0 4px 15px rgba(118, 88, 153, 0.2);
+            transform: translateY(-5px);
+        }
+        .deseo-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--borde-sutil);
+        }
+    </style>
+</head>
+<body>
+ 
+    <main class="container px-4 mt-5 pt-4">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 class="fw-bold" style="color: var(--color-principal);">Lista de Deseos</h2>
+                <p class="text-muted">Juegos y artículos que has guardado para comprar después.</p>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <!-- Sidebar Navigation -->
+            <div class="col-md-3">
+                <div class="profile-sidebar shadow-sm">
+                    <div class="text-center mb-4">
+                        <div class="avatar-container shadow position-relative">
+                            <img id="avatar-img" src="" alt="User Avatar">
+                        </div>
+                        <h5 id="sidebar-nombre" class="fw-bold mb-1" style="color: var(--texto-principal);">Cargando...</h5>
+                        <p class="text-muted small mb-0">Miembro de GameJunkies</p>
+                    </div>
+                    <hr style="border-color: var(--borde-sutil);">
+                    <nav class="nav flex-column">
+                        <a href="Perfil.html" class="profile-nav-link">👤 Perfil y Ajustes</a>
+                        <a href="Historial.html" class="profile-nav-link">📦 Historial de Compras</a>
+                        <a href="Favoritos.html" class="profile-nav-link active">❤️ Lista de Deseos</a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="col-md-9">
+                <div id="contenedor-deseos" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <!-- Los deseos serán inyectados aquí -->
+                    <div class="col-12 w-100 text-center py-5">
+                        <div class="spinner-border text-principal mb-3" style="color: var(--color-principal);" role="status"></div>
+                        <p class="text-muted">Cargando lista de deseos...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>     
+    <script src="../JavaScript/layout.js"></script>
+    <script src="../JavaScript/carrito.js"></script>
+    <script src="../JavaScript/auth.js"></script>
+    <script src="../JavaScript/deseos.js"></script> 
+    <script src="../JavaScript/favoritos.js"></script> 
+</body> 
+</html>

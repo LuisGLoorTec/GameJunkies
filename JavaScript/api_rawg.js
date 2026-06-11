@@ -86,6 +86,10 @@ function renderizarGrilla(juegos) {
                     <div class="position-relative">
                         <img src="${juego.background_image}" class="card-img-top img-poster w-100" alt="${juego.name}">
                         <span class="position-absolute top-0 end-0 m-2 badge bg-dark border border-secondary">⭐ ${juego.rating}</span>
+                        <button class="btn btn-outline-danger btn-sm position-absolute top-0 start-0 m-2 rounded-circle btn-deseo d-flex align-items-center justify-content-center p-0" 
+                                style="width: 35px; height: 35px; background-color: rgba(18, 18, 18, 0.8);"
+                                data-id="${juego.id}"
+                                onclick="if(window.toggleDeseo) window.toggleDeseo('${juego.id}', '${juego.name.replace(/'/g, "\\'")}', '${precioAleatorio}', '${juego.background_image}', this)">🤍</button>
                     </div>
                     <div class="card-body d-flex flex-column text-start">
                         <h6 class="card-title text-truncate mb-3" title="${juego.name}">${juego.name}</h6>
@@ -100,6 +104,9 @@ function renderizarGrilla(juegos) {
         `;
         contenedorGrilla.innerHTML += tarjetaHtml;
     });
+    
+    // Al terminar de inyectar las tarjetas, sincronizar corazones
+    if(window.actualizarCorazonesUI) window.actualizarCorazonesUI();
 }
 
 cargarDatosRawg();

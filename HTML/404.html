@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameJunkies | 404 No Encontrado</title>
+    <link rel="icon" href="../img/icon/espada.png" type="image/png">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../style/main.css">
+    <style>
+        .error-container {
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .error-code {
+            font-size: 8rem;
+            font-weight: 900;
+            color: var(--color-principal);
+            line-height: 1;
+            text-shadow: 4px 4px 0px rgba(118, 88, 153, 0.3);
+            margin-bottom: 20px;
+        }
+        .error-glitch {
+            position: relative;
+            display: inline-block;
+        }
+        .error-glitch::before, .error-glitch::after {
+            content: '404';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+        .error-glitch::before {
+            color: #0ff;
+            z-index: -1;
+            transform: translate(-3px, 2px);
+        }
+        .error-glitch::after {
+            color: #f0f;
+            z-index: -2;
+            transform: translate(3px, -2px);
+        }
+        .pixel-art {
+            font-size: 5rem;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+ 
+    <main class="container px-4">
+        <div class="error-container">
+            <div class="pixel-art">👾</div>
+            <div class="error-code error-glitch">404</div>
+            <h2 class="text-white fw-bold mb-3">¡Misión Fallida!</h2>
+            <p class="text-muted fs-5 mb-5 max-w-500">
+                Parece que has explorado fuera del mapa. La página que estás buscando fue destruida, movida, o nunca existió.
+            </p>
+            <div class="d-flex gap-3">
+                <a href="GameJunkies.html" class="btn btn-principal btn-lg fw-bold px-4">🔙 Volver a la Base (Inicio)</a>
+                <a href="Catalogo.html" class="btn btn-outline-light btn-lg px-4">Explorar Catálogo</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>     
+    <script src="../JavaScript/layout.js"></script>
+    <script src="../JavaScript/carrito.js"></script>
+    <script src="../JavaScript/auth.js"></script>
+</body> 
+</html>

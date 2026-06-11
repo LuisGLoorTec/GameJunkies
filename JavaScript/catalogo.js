@@ -132,6 +132,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="position-relative">
                             <img src="${imagen}" class="card-img-top img-poster w-100" alt="${juego.name}" style="height: 200px; object-fit: cover;">
                             <span class="position-absolute top-0 end-0 m-2 badge bg-dark border border-secondary">⭐ ${juego.rating}</span>
+                            <button class="btn btn-outline-danger btn-sm position-absolute top-0 start-0 m-2 rounded-circle btn-deseo d-flex align-items-center justify-content-center p-0" 
+                                    style="width: 35px; height: 35px; background-color: rgba(18, 18, 18, 0.8);"
+                                    data-id="${juego.id}"
+                                    onclick="if(window.toggleDeseo) window.toggleDeseo('${juego.id}', '${juego.name.replace(/'/g, "\\'")}', '${precioAleatorio}', '${imagen}', this)">🤍</button>
                         </div>
                         <div class="card-body d-flex flex-column text-start">
                             <h6 class="card-title text-truncate mb-3" title="${juego.name}">${juego.name}</h6>
@@ -148,8 +152,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         if (cantidadMostrada === 0) {
-            contenedorResultados.innerHTML = `<div class="col-12 text-center py-5 text-muted w-100">Ningún juego cumple con el filtro de precio máximo ($${rangoPrecio.value}). Intenta aumentar el límite.</div>`;
+            contenedorResultados.innerHTML = `<div class="col-12 text-center py-5 text-muted w-100">Ningún artículo cumple con el filtro de precio ($${rangoPrecio.value}).</div>`;
         }
+        
+        if(window.actualizarCorazonesUI) window.actualizarCorazonesUI();
     }
 
     function renderizarMerchCatalogo(productos) {
@@ -169,6 +175,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="position-relative">
                             <img src="${producto.image}" class="card-img-top img-poster w-100" alt="${producto.name}" style="height: 200px; object-fit: cover;">
                             <span class="position-absolute top-0 end-0 m-2 badge badge-merch px-2 py-1">${producto.category}</span>
+                            <button class="btn btn-outline-danger btn-sm position-absolute top-0 start-0 m-2 rounded-circle btn-deseo d-flex align-items-center justify-content-center p-0" 
+                                    style="width: 35px; height: 35px; background-color: rgba(18, 18, 18, 0.8);"
+                                    data-id="${producto.id}_merch"
+                                    onclick="if(window.toggleDeseo) window.toggleDeseo('${producto.id}_merch', '${producto.name.replace(/'/g, "\\'")}', '${producto.price}', '${producto.image}', this)">🤍</button>
                         </div>
                         <div class="card-body d-flex flex-column text-start">
                             <h6 class="card-title text-truncate mb-3" title="${producto.name}">${producto.name}</h6>
@@ -186,5 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cantidadMostrada === 0) {
             contenedorResultados.innerHTML = `<div class="col-12 text-center py-5 text-muted w-100">Ningún artículo de mercancía cumple con el filtro de precio ($${rangoPrecio.value}).</div>`;
         }
+
+        if(window.actualizarCorazonesUI) window.actualizarCorazonesUI();
     }
 });

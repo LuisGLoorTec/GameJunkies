@@ -59,11 +59,16 @@ function renderizarPantallaDetalle(juego) {
                     ${descripcion.substring(0, 300)}...
                 </p>
                 
-                <div class="mt-auto pt-4 d-flex gap-3">
-                    <button class="btn btn-lg w-100 fw-bold btn-carrito-add" style="background-color: var(--color-principal); color: #ffffff; transition: all 0.3s ease; box-shadow: 0 0 15px var(--color-principal);">
+                <div class="mt-auto pt-4 d-flex flex-column flex-md-row gap-3">
+                    <button class="btn btn-lg fw-bold btn-carrito-add flex-grow-1" style="background-color: var(--color-principal); color: #ffffff; transition: all 0.3s ease; box-shadow: 0 0 15px var(--color-principal);">
                         🛒 Añadir al Carrito
                     </button>
-                    <a href="GameJunkies.html" class="btn btn-secundario btn-lg w-100">Volver</a>
+                    <button class="btn btn-outline-danger btn-lg fw-bold btn-deseo texto-largo flex-grow-1" 
+                            data-id="${juego.id}"
+                            onclick="if(window.toggleDeseo) window.toggleDeseo('${juego.id}', '${juego.name.replace(/'/g, "\\'")}', '${precioAleatorio}', '${juego.background_image}', this)">
+                        🤍 Añadir a Deseos
+                    </button>
+                    <a href="GameJunkies.html" class="btn btn-secundario btn-lg flex-grow-1">Volver</a>
                 </div>
             </div>
         </div>
@@ -127,6 +132,8 @@ function renderizarPantallaDetalle(juego) {
     contenedorDetalle.innerHTML = htmlDetalle;
     
     cargarResenas(juego.id);
+    
+    if(window.actualizarCorazonesUI) window.actualizarCorazonesUI();
     
     const formResena = document.getElementById('form-resena');
     if (formResena) {
