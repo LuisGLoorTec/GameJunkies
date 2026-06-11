@@ -92,9 +92,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn-principal:hover {
     background-color: var(--color-secundario);
-    color: #fff;
+    color: #111111 !important; /* Texto oscuro para mejor contraste sobre el color secundario */
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(45, 176, 230, 0.4);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .btn-secundario {
@@ -206,7 +206,7 @@ body.light-mode .navbar-toggler-icon-custom {
 
 /* Buscador y Filtros */
 .input-busqueda, .select-filtro {
-    background-color: var(--panel-oscuro) !important;
+    background-color: var(--fondo-oscuro) !important;
     color: var(--texto-principal) !important;
     border: 1px solid var(--borde-sutil) !important;
     border-radius: 8px;

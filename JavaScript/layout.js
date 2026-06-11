@@ -240,8 +240,8 @@ function actualizarNavbarAuth() {
         }
         
         authContainer.innerHTML = `
-            <span class="text-white me-2 fw-bold">Hola, ${usuarioActual.nombre.split(' ')[0]}</span>
-            <a href="Perfil.html" class="btn btn-outline-light btn-sm">Mi Perfil</a>
+            <span class="me-2 fw-bold" style="color: var(--texto-principal);">Hola, ${usuarioActual.nombre.split(' ')[0]}</span>
+            <a href="Perfil.html" class="btn btn-tema-custom btn-sm">Mi Perfil</a>
             <button id="btn-logout" class="btn btn-danger btn-sm">Salir</button>
         `;
         
@@ -269,7 +269,7 @@ function cargarFooter() {
                 </div>
                 
                 <div class="col-lg-2 col-md-3 col-6">
-                    <h6 class="text-white fw-bold mb-3">Empresa</h6>
+                    <h6 class="fw-bold mb-3" style="color: var(--texto-principal);">Empresa</h6>
                     <ul class="list-unstyled mb-0">
                         <li class="mb-2"><a href="Nosotros.html" class="text-muted text-decoration-none hover-text-principal transition">Sobre Nosotros</a></li>
                         <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-text-principal transition">Trabaja con Nosotros</a></li>
@@ -278,7 +278,7 @@ function cargarFooter() {
                 </div>
 
                 <div class="col-lg-2 col-md-3 col-6">
-                    <h6 class="text-white fw-bold mb-3">Soporte</h6>
+                    <h6 class="fw-bold mb-3" style="color: var(--texto-principal);">Soporte</h6>
                     <ul class="list-unstyled mb-0">
                         <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-text-principal transition">FAQ</a></li>
                         <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-text-principal transition">Reembolsos</a></li>
@@ -287,7 +287,7 @@ function cargarFooter() {
                 </div>
                 
                 <div class="col-lg-4 col-md-12">
-                    <h6 class="text-white fw-bold mb-3">Comunidad</h6>
+                    <h6 class="fw-bold mb-3" style="color: var(--texto-principal);">Comunidad</h6>
                     <div class="d-flex gap-3 mb-4">
                         <a href="#" class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center p-0" style="width: 40px; height: 40px;">🐦</a>
                         <a href="#" class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center p-0" style="width: 40px; height: 40px;">🎮</a>
