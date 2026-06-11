@@ -1,5 +1,8 @@
 const apiKeyRawg = 'e477df29112544ab8396d8042e83419b';
-const urlRawg = `https://api.rawg.io/api/games?key=${apiKeyRawg}&page_size=15`;
+// Función para obtener parámetros comunes de filtro
+function obtenerFiltroNsfw() {
+    return '&exclude_tags=nsfw,nudity,eroge,hentai,adult';
+}
 
 const carruselInner = document.querySelector('#carruselJuegos .carousel-inner');
 const carruselIndicators = document.querySelector('#carruselJuegos .carousel-indicators');
@@ -7,16 +10,29 @@ const contenedorGrilla = document.getElementById('contenedor-juegos-grilla');
 
 async function cargarDatosRawg() {
     try {
-        const respuesta = await fetch(urlRawg);
-        const datos = await respuesta.json();
+        const ocultarNsfw = obtenerFiltroNsfw();
         
-        const juegosMezclados = datos.results.sort(() => 0.5 - Math.random());
+        // Petición 1: Carrusel -> Estrenos famosos del 2016 hasta la actualidad y bien valorados (-added garantiza fama global)
+        const urlCarrusel = `https://api.rawg.io/api/games?key=${apiKeyRawg}&dates=2016-01-01,2026-12-31&ordering=-added&metacritic=80,100&page_size=30${ocultarNsfw}`;
         
-        const juegosCarrusel = juegosMezclados.slice(0, 6);
-        renderizarCarrusel(juegosCarrusel);
+        // Petición 2: Grilla Destacados -> Juegos famosos desde el 2020 hasta el 2026 (-added)
+        const urlGrilla = `https://api.rawg.io/api/games?key=${apiKeyRawg}&dates=2020-01-01,2026-12-31&ordering=-added&page_size=15${ocultarNsfw}`;
+
+        // Realizamos ambas consultas al mismo tiempo
+        const [respCarrusel, respGrilla] = await Promise.all([
+            fetch(urlCarrusel),
+            fetch(urlGrilla)
+        ]);
+
+        const datosCarrusel = await respCarrusel.json();
+        const datosGrilla = await respGrilla.json();
         
-        const juegosGrilla = juegosMezclados.slice(6, 14);
-        renderizarGrilla(juegosGrilla);
+        // Mezclamos los 30 juegos principales y tomamos 6 para el carrusel
+        const carruselMezclado = datosCarrusel.results.sort(() => 0.5 - Math.random()).slice(0, 6);
+        renderizarCarrusel(carruselMezclado);
+        
+        // Mostrar 15 juegos destacados en la grilla
+        renderizarGrilla(datosGrilla.results);
         
     } catch (error) {
         console.error("Error al cargar la API:", error);
@@ -171,7 +187,9 @@ function mostrarSugerencias(juegos) {
 }
 
 function ejecutarBusqueda(termino) {
-    const urlBusqueda = `https://api.rawg.io/api/games?key=${apiKeyRawg}&search=${termino}&page_size=8`;
+    const ocultarNsfw = obtenerFiltroNsfw();
+    const urlBusqueda = `https://api.rawg.io/api/games?key=${apiKeyRawg}&search=${termino}&page_size=15${ocultarNsfw}`;
+
     fetch(urlBusqueda)
         .then(response => response.json())
         .then(respuesta => {
