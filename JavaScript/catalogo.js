@@ -44,7 +44,10 @@ document.addEventListener('DOMContentLoaded', () => {
         mostrarCargando();
         fetch(url)
             .then(res => res.json())
-            .then(data => renderizarJuegos(data.results))
+            .then(data => {
+                const limpios = window.limpiarJuegos ? window.limpiarJuegos(data.results) : data.results;
+                renderizarJuegos(limpios);
+            })
             .catch(err => {
                 console.error(err);
                 mostrarError();
@@ -87,7 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(res => res.json())
             .then(data => {
                 if(data.results && data.results.length > 0) {
-                    renderizarJuegos(data.results);
+                    const limpios = window.limpiarJuegos ? window.limpiarJuegos(data.results) : data.results;
+                    renderizarJuegos(limpios);
                 } else {
                     contenedorResultados.innerHTML = `<div class="col-12 text-center text-muted py-5">No se encontraron resultados para los filtros seleccionados.</div>`;
                 }
