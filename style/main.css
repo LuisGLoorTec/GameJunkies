@@ -46,6 +46,10 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 800;
 }
 
+.text-muted {
+    color: var(--texto-apagado) !important;
+}
+
 /* Navbar Estilo AnkerGames */
 .navbar-custom {
     background-color: var(--navbar-bg) !important;
@@ -309,5 +313,30 @@ body.light-mode .toast-custom {
     background-color: var(--panel-oscuro) !important;
     color: var(--color-principal) !important;
     border-color: var(--borde-sutil) var(--borde-sutil) var(--panel-oscuro) !important;
+}
+
+/* Paginación Custom */
+.custom-pagination .page-link {
+    background-color: var(--panel-oscuro);
+    color: var(--texto-principal);
+    border-color: var(--borde-sutil);
+}
+
+.custom-pagination .page-link:hover {
+    background-color: var(--color-principal);
+    color: #fff;
+    border-color: var(--color-principal);
+}
+
+.custom-pagination .page-item.active .page-link {
+    background-color: var(--color-principal);
+    border-color: var(--color-principal);
+    color: #fff;
+}
+
+.custom-pagination .page-item.disabled .page-link {
+    background-color: var(--fondo-oscuro);
+    color: var(--texto-apagado);
+    border-color: var(--borde-sutil);
 }
 
