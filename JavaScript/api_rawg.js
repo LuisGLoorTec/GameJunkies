@@ -27,12 +27,14 @@ async function cargarDatosRawg() {
         const datosCarrusel = await respCarrusel.json();
         const datosGrilla = await respGrilla.json();
         
-        // Mezclamos los 30 juegos principales y tomamos 6 para el carrusel
-        const carruselMezclado = datosCarrusel.results.sort(() => 0.5 - Math.random()).slice(0, 6);
-        renderizarCarrusel(carruselMezclado);
+        if (carruselInner && carruselIndicators) {
+            const carruselMezclado = datosCarrusel.results.sort(() => 0.5 - Math.random()).slice(0, 6);
+            renderizarCarrusel(carruselMezclado);
+        }
         
-        // Mostrar 15 juegos destacados en la grilla
-        renderizarGrilla(datosGrilla.results);
+        if (contenedorGrilla) {
+            renderizarGrilla(datosGrilla.results);
+        }
         
     } catch (error) {
         console.error("Error al cargar la API:", error);
@@ -319,8 +321,9 @@ function renderizarMerch(productos) {
 // --- Fin: Datos Estáticos Merchandising ---
 
 // --- Inicio: Lógica de Filtrado ---
-selectCategoria.addEventListener('change', (e) => {
-    const opcionSeleccionada = e.target.value;
+if (selectCategoria) {
+    selectCategoria.addEventListener('change', (e) => {
+        const opcionSeleccionada = e.target.value;
     
     if (opcionSeleccionada === 'merch') {
         contenedorGrilla.style.display = 'none';
@@ -339,4 +342,5 @@ selectCategoria.addEventListener('change', (e) => {
             ejecutarBusqueda(opcionSeleccionada);
         }
     }
-});
+    });
+}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameJunkies | Catálogo</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../style/main.css">
+</head>
+<body>
+ 
+    <main class="container-fluid px-4 mt-5 pt-4"> <!-- mt-5 pt-4 for navbar spacing -->
+        <div class="row mb-4 align-items-center">             
+            <div class="col-12 text-center">                 
+                <h2 id="titulo-pagina-catalogo" class="mb-2 fw-bold" style="color: var(--color-principal);">Catálogo Completo</h2>
+                <p class="text-muted">Encuentra los mejores juegos y mercancía usando nuestros filtros de búsqueda.</p>
+            </div>             
+        </div>         
+        
+        <!-- Sección de Filtros -->
+        <div class="card bg-dark text-white mb-5 border-0 shadow" style="background-color: var(--panel-oscuro) !important;">
+            <div class="card-body p-4">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label for="filtro-cat-avanzado" class="form-label fw-bold" style="color: var(--texto-principal);">Categoría</label>
+                        <select id="filtro-cat-avanzado" class="form-select select-filtro">                     
+                            <option value="todos">Todos los géneros</option>                     
+                            <option value="accion">Acción</option>                     
+                            <option value="rpg">RPG</option>                     
+                            <option value="shooter">Shooter</option>                     
+                            <option value="merch">Merch & Ropa</option>                 
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="filtro-plataforma" class="form-label fw-bold" style="color: var(--texto-principal);">Plataforma</label>
+                        <select id="filtro-plataforma" class="form-select select-filtro">                     
+                            <option value="todas">Todas las plataformas</option>                     
+                            <option value="pc">PC</option>                     
+                            <option value="playstation">PlayStation 5</option>                     
+                            <option value="xbox">Xbox Series X|S</option>                     
+                            <option value="nintendo">Nintendo Switch</option>                 
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="rango-precio" class="form-label fw-bold" style="color: var(--texto-principal);">Precio Máximo: <span id="valor-rango-precio" class="text-precio">$100</span></label>
+                        <input type="range" class="form-range" id="rango-precio" min="0" max="150" step="5" value="100">
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button id="btn-aplicar-filtros-catalogo" class="btn btn-principal w-100 fw-bold">Filtrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Resultados del Catálogo -->
+        <div class="row mb-3">
+            <div class="col-12 d-flex justify-content-between align-items-center">
+                <h4 style="color: var(--texto-principal);">Resultados de Búsqueda</h4>
+                <div class="d-flex align-items-center">
+                    <label class="me-2 text-muted text-nowrap">Ordenar por:</label>
+                    <select class="form-select form-select-sm select-filtro" style="width: auto;">
+                        <option value="relevancia">Relevancia</option>
+                        <option value="precio-asc">Precio: Menor a Mayor</option>
+                        <option value="precio-desc">Precio: Mayor a Menor</option>
+                        <option value="alfabetico">Alfabéticamente</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div id="contenedor-resultados-catalogo" class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4 mb-5">         
+            <!-- El contenido se inyectará aquí desde JS, o en su defecto mostramos un placeholder -->
+            <div class="col-12 w-100 text-center py-5">
+                <p class="text-muted fs-5">Selecciona tus filtros y haz clic en "Filtrar" para descubrir nuevos juegos.</p>
+            </div>
+        </div>     
+
+        <!-- Paginación -->
+        <nav aria-label="Navegación de páginas del catálogo">
+            <ul class="pagination justify-content-center mb-5 custom-pagination">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
+
+    </main>          
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>     
+    <script src="../JavaScript/layout.js"></script>
+    <script src="../JavaScript/carrito.js"></script>
+    <script src="../JavaScript/auth.js"></script>
+    <script src="../JavaScript/api_rawg.js"></script> 
+    <script src="../JavaScript/catalogo.js"></script>
+    
+    <script>
+        // Script simple para actualizar el valor visual del rango de precio
+        document.addEventListener('DOMContentLoaded', () => {
+            const rangoPrecio = document.getElementById('rango-precio');
+            const valorRangoPrecio = document.getElementById('valor-rango-precio');
+            
+            if (rangoPrecio && valorRangoPrecio) {
+                rangoPrecio.addEventListener('input', function(e) {
+                    valorRangoPrecio.innerText = '$' + e.target.value;
+                });
+            }
+        });
+    </script>
+</body> 
+</html>
