@@ -18,9 +18,57 @@ document.addEventListener('DOMContentLoaded', () => {
     if (inputEmail) inputEmail.value = usuarioActual.email;
     if (sidebarNombre) sidebarNombre.textContent = usuarioActual.nombre.split(' ')[0]; // Solo primer nombre
     
-    // Generar un avatar bonito usando la API de DiceBear basado en el email (para que sea constante)
-    const seed = encodeURIComponent(usuarioActual.email);
-    if (avatarImg) avatarImg.src = `https://api.dicebear.com/7.x/adventurer/svg?seed=${seed}&backgroundColor=121212`;
+    // Generar avatar bonito usando DiceBear o cargar la foto guardada
+    if (avatarImg) {
+        if (usuarioActual.avatar) {
+            avatarImg.src = usuarioActual.avatar;
+        } else {
+            const seed = encodeURIComponent(usuarioActual.email);
+            avatarImg.src = `https://api.dicebear.com/7.x/adventurer/svg?seed=${seed}&backgroundColor=121212`;
+        }
+    }
+
+    // 2.5 Lógica para cambiar foto de perfil (Base64)
+    const inputAvatar = document.getElementById('input-avatar');
+    if (inputAvatar) {
+        inputAvatar.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            // Validar que sea una imagen y tamaño razonable (ej. máx 2MB)
+            if (!file.type.startsWith('image/')) {
+                if (window.mostrarToast) window.mostrarToast('Por favor, sube un archivo de imagen válido.', 'error');
+                return;
+            }
+            if (file.size > 2 * 1024 * 1024) {
+                if (window.mostrarToast) window.mostrarToast('La imagen es demasiado grande (Máximo 2MB).', 'error');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const base64String = event.target.result;
+                
+                // Actualizar imagen visualmente
+                if (avatarImg) avatarImg.src = base64String;
+                
+                // Guardar en objeto y localStorage
+                usuarioActual.avatar = base64String;
+                localStorage.setItem('usuarioActual', JSON.stringify(usuarioActual));
+
+                // Actualizar en el array global
+                let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+                const index = usuarios.findIndex(u => u.email === usuarioActual.email);
+                if (index !== -1) {
+                    usuarios[index] = usuarioActual;
+                    localStorage.setItem('usuarios', JSON.stringify(usuarios));
+                }
+
+                if (window.mostrarToast) window.mostrarToast('Foto de perfil actualizada.', 'success');
+            };
+            reader.readAsDataURL(file);
+        });
+    }
 
     // 3. Lógica para guardar cambios
     const formPerfil = document.getElementById('form-editar-perfil');

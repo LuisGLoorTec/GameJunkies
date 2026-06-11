@@ -60,8 +60,14 @@
             <div class="col-md-3">
                 <div class="profile-sidebar shadow-sm">
                     <div class="text-center mb-4">
-                        <div class="avatar-container shadow">
+                        <div class="avatar-container shadow position-relative">
                             <img id="avatar-img" src="" alt="User Avatar">
+                        </div>
+                        <div class="mt-2 mb-3">
+                            <input type="file" id="input-avatar" accept="image/*" class="d-none">
+                            <label for="input-avatar" class="badge bg-secondary" style="cursor: pointer; background-color: var(--color-principal) !important;">
+                                📷 Cambiar Foto
+                            </label>
                         </div>
                         <h5 id="sidebar-nombre" class="fw-bold mb-1" style="color: var(--texto-principal);">Cargando...</h5>
                         <p class="text-muted small mb-0">Miembro de GameJunkies</p>

@@ -134,6 +134,34 @@
                 btnSubmit.textContent = "Procesando pago...";
                 
                 setTimeout(() => {
+                    // Guardar en el historial si hay usuario logueado
+                    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+                    let usuarioActual = JSON.parse(localStorage.getItem('usuarioActual'));
+                    
+                    if (usuarioActual && carrito.length > 0) {
+                        const totalCalculado = carrito.reduce((sum, item) => sum + (parseFloat(item.price) * item.quantity), 0);
+                        const nuevaOrden = {
+                            id: 'GJ-' + Math.floor(100000 + Math.random() * 900000), // Random ID
+                            fecha: new Date().toISOString(),
+                            total: totalCalculado.toFixed(2),
+                            items: carrito
+                        };
+                        
+                        if (!usuarioActual.historial) usuarioActual.historial = [];
+                        usuarioActual.historial.unshift(nuevaOrden); // Agregar al inicio
+                        
+                        // Guardar en sesión
+                        localStorage.setItem('usuarioActual', JSON.stringify(usuarioActual));
+                        
+                        // Guardar en base de datos global
+                        let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+                        const index = usuarios.findIndex(u => u.email === usuarioActual.email);
+                        if (index !== -1) {
+                            usuarios[index] = usuarioActual;
+                            localStorage.setItem('usuarios', JSON.stringify(usuarios));
+                        }
+                    }
+
                     // Vaciar el carrito
                     localStorage.removeItem('carrito');
                     
