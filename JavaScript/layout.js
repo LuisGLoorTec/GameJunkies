@@ -208,31 +208,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Interceptar login rápido para validar con localStorage
-    const formLoginRapido = document.getElementById('form-login-rapido');
-    if (formLoginRapido) {
-        formLoginRapido.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value.trim();
-            const password = document.getElementById('login-password').value;
-            
-            let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-            const usuarioValido = usuarios.find(u => u.email === email && u.password === password);
-            
-            if (usuarioValido) {
-                localStorage.setItem('usuarioActual', JSON.stringify(usuarioValido));
-                mostrarToast('Sesión iniciada correctamente', 'success');
-                
-                const modal = bootstrap.Modal.getInstance(document.getElementById('modalLogin'));
-                if (modal) modal.hide();
-                
-                actualizarNavbarAuth();
-            } else {
-                mostrarToast('Credenciales incorrectas', 'error');
-            }
-        });
-    }
-
     // Comprobar sesión activa al cargar la página
     actualizarNavbarAuth();
 });
@@ -253,8 +228,14 @@ function actualizarNavbarAuth() {
             authContainer.className = 'd-flex align-items-center gap-2';
             authContainer.id = 'auth-logged-in';
             
-            const carrito = document.querySelector('a[href="Carrito.html"]') || document.getElementById('btn-mini-carrito');
-            parent.insertBefore(authContainer, carrito);
+            // Buscar primero el botón de mini carrito (el offcanvas)
+            const carrito = document.getElementById('btn-mini-carrito') || document.querySelector('.navbar a[href="Carrito.html"]');
+            
+            if (carrito && parent.contains(carrito)) {
+                parent.insertBefore(authContainer, carrito);
+            } else {
+                parent.appendChild(authContainer);
+            }
         }
         
         authContainer.innerHTML = `

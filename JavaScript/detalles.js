@@ -27,6 +27,9 @@ function renderizarPantallaDetalle(juego) {
     
     const descripcion = juego.description_raw ? juego.description_raw : "Description not available for this title.";
     const generos = juego.genres.map(g => `<span class="badge bg-secondary me-1">${g.name}</span>`).join('');
+    
+    const desarrollador = juego.developers && juego.developers.length > 0 ? juego.developers[0].name : 'Desconocido';
+    const plataformas = juego.platforms ? juego.platforms.map(p => p.platform.name).join(', ') : 'N/A';
 
     const htmlDetalle = `
         <div class="row p-4 rounded shadow-lg border" style="background-color: var(--panel-oscuro) !important; border-color: var(--borde-sutil) !important;">

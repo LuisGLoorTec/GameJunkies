@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // ====== REGISTRO PANTALLA COMPLETA ======
-    const formRegistro = document.getElementById('form-registro');
-    if (formRegistro) {
-        formRegistro.addEventListener('submit', (e) => {
+    // ====== DELEGACIÓN GLOBAL DE EVENTOS ======
+    document.addEventListener('submit', (e) => {
+        // --- Registro Pantalla Completa ---
+        if (e.target && e.target.id === 'form-registro') {
             e.preventDefault();
             
             const nombre = document.getElementById('reg-nombre').value.trim();
@@ -17,13 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             procesarRegistro(nombre, email, password);
-        });
-    }
-
-    // ====== REGISTRO MODAL RÁPIDO ======
-    const formRegistroRapido = document.getElementById('form-registro-rapido');
-    if (formRegistroRapido) {
-        formRegistroRapido.addEventListener('submit', (e) => {
+        }
+        
+        // --- Registro Modal Rápido ---
+        else if (e.target && e.target.id === 'form-registro-rapido') {
             e.preventDefault();
             
             const nombre = document.getElementById('reg-rapido-nombre').value.trim();
@@ -37,33 +34,48 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             procesarRegistro(nombre, email, password, true);
-        });
-    }
+        }
+        
+        // --- Login Pantalla Completa ---
+        else if (e.target && e.target.id === 'form-login-full') {
+            e.preventDefault();
+            
+            const email = document.getElementById('login-full-email').value.trim();
+            const password = document.getElementById('login-full-password').value;
+            
+            iniciarSesion(email, password);
+        }
+
+        // --- Login Modal Rápido ---
+        else if (e.target && e.target.id === 'form-login-rapido') {
+            e.preventDefault();
+            
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+            
+            iniciarSesion(email, password, true);
+        }
+    });
 
     // Función auxiliar compartida para registrar
     function procesarRegistro(nombre, email, password, esModal = false) {
-        // Obtener usuarios existentes
         let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
         
-        // Verificar si el email ya existe
         const existe = usuarios.find(u => u.email === email);
         if (existe) {
             if(window.mostrarToast) window.mostrarToast('Este correo ya está registrado', 'error');
             return;
         }
         
-        // Guardar nuevo usuario
         const nuevoUsuario = { nombre, email, password };
         usuarios.push(nuevoUsuario);
         localStorage.setItem('usuarios', JSON.stringify(usuarios));
         
-        // Autenticar automáticamente
         localStorage.setItem('usuarioActual', JSON.stringify(nuevoUsuario));
         
         if(window.mostrarToast) window.mostrarToast('Registro exitoso', 'success');
         
         if (esModal) {
-            // Cerrar modal
             const modalEl = document.getElementById('modalRegistro');
             if(modalEl) {
                 const modal = bootstrap.Modal.getInstance(modalEl);
@@ -77,20 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ====== LOGIN PANTALLA COMPLETA ======
-    const formLoginFull = document.getElementById('form-login-full');
-    if (formLoginFull) {
-        formLoginFull.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const email = document.getElementById('login-full-email').value.trim();
-            const password = document.getElementById('login-full-password').value;
-            
-            iniciarSesion(email, password);
-        });
-    }
-
-    function iniciarSesion(email, password) {
+    // Función auxiliar compartida para iniciar sesión
+    function iniciarSesion(email, password, esModal = false) {
         let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
         
         const usuarioValido = usuarios.find(u => u.email === email && u.password === password);
@@ -99,9 +99,18 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('usuarioActual', JSON.stringify(usuarioValido));
             if(window.mostrarToast) window.mostrarToast('Sesión iniciada correctamente', 'success');
             
-            setTimeout(() => {
-                window.location.href = 'GameJunkies.html';
-            }, 1000);
+            if (esModal) {
+                const modalEl = document.getElementById('modalLogin');
+                if(modalEl) {
+                    const modal = bootstrap.Modal.getInstance(modalEl);
+                    if (modal) modal.hide();
+                }
+                if (window.actualizarNavbarAuth) window.actualizarNavbarAuth();
+            } else {
+                setTimeout(() => {
+                    window.location.href = 'GameJunkies.html';
+                }, 1000);
+            }
         } else {
             if(window.mostrarToast) window.mostrarToast('Credenciales incorrectas', 'error');
         }
