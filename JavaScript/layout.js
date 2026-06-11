@@ -29,7 +29,7 @@ function cargarNavbar() {
                     </button>
                     <button type="button" class="btn btn-secundario" data-bs-toggle="modal" data-bs-target="#modalLogin">Iniciar Sesión</button>
                     <button type="button" class="btn btn-principal" data-bs-toggle="modal" data-bs-target="#modalRegistro">Registrarse</button>
-                    <a class="btn btn-outline-warning ms-2" href="Carrito.html">🛒 (0)</a>
+                    <button class="btn btn-outline-warning ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCarrito" id="btn-mini-carrito">🛒 (0)</button>
                 </div>
             </div>         
         </div>     
@@ -100,6 +100,27 @@ function cargarNavbar() {
                         <a href="Registro.html" class="text-decoration-none" style="font-size: 0.85rem; color: var(--texto-apagado);">Ir a pantalla completa de registro</a>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mini Carrito Offcanvas -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCarrito" aria-labelledby="offcanvasCarritoLabel" style="background-color: var(--panel-oscuro); color: var(--texto-principal);">
+        <div class="offcanvas-header border-bottom" style="border-color: var(--borde-sutil) !important;">
+            <h5 class="offcanvas-title fw-bold" id="offcanvasCarritoLabel">Tu Carrito</h5>
+            <button type="button" class="btn-close btn-close-custom" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column">
+            <div id="mini-carrito-items" class="flex-grow-1 overflow-auto">
+                <!-- Se llenará dinámicamente -->
+                <div class="text-center py-5 text-muted">Tu carrito está vacío</div>
+            </div>
+            <div class="mt-auto border-top pt-3" style="border-color: var(--borde-sutil) !important;">
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="fw-bold fs-5">Subtotal:</span>
+                    <span class="fw-bold fs-5 text-precio" id="mini-carrito-total">$0.00</span>
+                </div>
+                <a href="Carrito.html" class="btn btn-principal w-100 py-2 fw-bold">Proceder al Pago</a>
             </div>
         </div>
     </div>
@@ -232,7 +253,7 @@ function actualizarNavbarAuth() {
             authContainer.className = 'd-flex align-items-center gap-2';
             authContainer.id = 'auth-logged-in';
             
-            const carrito = document.querySelector('a[href="Carrito.html"]');
+            const carrito = document.querySelector('a[href="Carrito.html"]') || document.getElementById('btn-mini-carrito');
             parent.insertBefore(authContainer, carrito);
         }
         

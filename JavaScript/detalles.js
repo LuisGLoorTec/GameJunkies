@@ -38,14 +38,21 @@ function renderizarPantallaDetalle(juego) {
                 <h1 class="mb-3" style="color: var(--texto-principal);">${juego.name}</h1>
                 <div class="mb-3">
                     ${generos}
-                    <span class="badge bg-warning text-dark ms-2">⭐ Rating: ${juego.rating}</span>
-                    <span class="badge bg-info text-dark ms-2">📅 Lanzamiento: ${juego.released}</span>
                 </div>
-                
-                <h3 class="text-precio display-5 fw-bold mb-4">$${precioAleatorio}</h3>
-                
-                <h5 class="border-bottom pb-2 mb-3" style="color: var(--texto-principal); border-color: var(--borde-sutil) !important;">Sinopsis Breve</h5>
-                <p style="color: var(--texto-principal); line-height: 1.6; max-height: 150px; overflow-y: auto; padding-right: 10px;">
+
+                <div class="mb-4">
+                    <h3 class="fw-bold text-precio" style="font-size: 2.5rem;">$${precioAleatorio}</h3>
+                </div>
+
+                <div class="p-4 rounded mb-4 shadow-sm" style="background-color: var(--panel-oscuro); border: 1px solid var(--borde-sutil);">
+                    <ul class="list-unstyled mb-0" style="color: var(--texto-apagado);">
+                        <li class="mb-2"><strong style="color: var(--texto-principal);">Desarrollador:</strong> ${desarrollador}</li>
+                        <li class="mb-2"><strong style="color: var(--texto-principal);">Plataformas:</strong> ${plataformas}</li>
+                        <li><strong style="color: var(--texto-principal);">Editor:</strong> ${juego.publishers && juego.publishers.length > 0 ? juego.publishers[0].name : 'N/A'}</li>
+                    </ul>
+                </div>
+
+                <p class="mb-4" style="color: var(--texto-apagado); line-height: 1.6;">
                     ${descripcion.substring(0, 300)}...
                 </p>
                 
@@ -58,7 +65,6 @@ function renderizarPantallaDetalle(juego) {
             </div>
         </div>
 
-        <!-- TABS SECTION -->
         <div class="mt-5">
             <ul class="nav nav-tabs custom-tabs" id="juegoTabs" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -70,19 +76,16 @@ function renderizarPantallaDetalle(juego) {
             </ul>
             <div class="tab-content p-4 border border-top-0 rounded-bottom" id="juegoTabsContent" style="background-color: var(--panel-oscuro); border-color: var(--borde-sutil) !important;">
                 
-                <!-- Pestaña: Información General -->
                 <div class="tab-pane fade show active" id="general-tab-pane" role="tabpanel" aria-labelledby="general-tab" tabindex="0">
                     <h5 style="color: var(--texto-principal); margin-bottom: 20px;">Descripción Completa</h5>
                     <p style="color: var(--texto-principal); line-height: 1.7; white-space: pre-line;">${descripcion}</p>
                 </div>
                 
-                <!-- Pestaña: Reseñas (Sistema de Comentarios) -->
                 <div class="tab-pane fade" id="resenas-tab-pane" role="tabpanel" aria-labelledby="resenas-tab" tabindex="0">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h5 style="color: var(--texto-principal); margin-bottom: 0;">Comentarios y Reseñas</h5>
                     </div>
                     
-                    <!-- Formulario de nueva reseña -->
                     <div class="card mb-4 shadow-sm" style="background-color: var(--fondo-oscuro); border-color: var(--borde-sutil);">
                         <div class="card-body">
                             <form id="form-resena">
@@ -111,9 +114,7 @@ function renderizarPantallaDetalle(juego) {
                         </div>
                     </div>
 
-                    <!-- Lista de reseñas -->
                     <div id="lista-resenas">
-                        <!-- Las reseñas se cargarán aquí dinámicamente -->
                     </div>
                 </div>
             </div>
@@ -122,7 +123,6 @@ function renderizarPantallaDetalle(juego) {
 
     contenedorDetalle.innerHTML = htmlDetalle;
     
-    // Inicializar sistema de comentarios
     cargarResenas(juego.id);
     
     const formResena = document.getElementById('form-resena');
@@ -133,16 +133,16 @@ function renderizarPantallaDetalle(juego) {
         });
     }
 
-    // Botón de ejemplo para funcionalidad de Toast (añadir a carrito visualmente)
     const btnAddCart = document.querySelector('.btn-carrito-add');
-    if (btnAddCart && window.mostrarToast) {
+    if (btnAddCart && window.agregarAlCarrito) {
         btnAddCart.addEventListener('click', () => {
-            window.mostrarToast(`"${juego.name}" añadido al carrito`, 'success');
+            window.agregarAlCarrito(juego.id, juego.name, precioAleatorio, juego.background_image, 'Videojuego');
         });
     }
 }
+// --- Fin: Carga de Detalles de Juego ---
 
-// Lógica de Comentarios con LocalStorage
+// --- Inicio: Sistema de Reseñas ---
 function cargarResenas(idJuego) {
     const contenedorResenas = document.getElementById('lista-resenas');
     const resenasGuardadas = JSON.parse(localStorage.getItem(`resenas_${idJuego}`)) || [];
@@ -187,18 +187,16 @@ function guardarResena(idJuego) {
     };
     
     const resenasGuardadas = JSON.parse(localStorage.getItem(`resenas_${idJuego}`)) || [];
-    resenasGuardadas.unshift(nuevaResena); // Añadir al inicio
+    resenasGuardadas.unshift(nuevaResena); 
     
     localStorage.setItem(`resenas_${idJuego}`, JSON.stringify(resenasGuardadas));
     
-    // Limpiar formulario
     document.getElementById('form-resena').reset();
     
-    // Mostrar Toast
     if (window.mostrarToast) {
         window.mostrarToast('Reseña publicada correctamente', 'success');
     }
     
-    // Recargar lista
     cargarResenas(idJuego);
 }
+// --- Fin: Sistema de Reseñas ---

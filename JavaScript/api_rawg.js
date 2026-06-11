@@ -35,6 +35,8 @@ function renderizarCarrusel(juegos) {
         `;
         carruselIndicators.innerHTML += botonIndicador;
         
+        const precioAleatorio = (Math.random() * (69.99 - 19.99) + 19.99).toFixed(2);
+        
         const itemCarrusel = `
             <div class="carousel-item ${esActivo}" style="height: 600px;">
                 <img src="${juego.background_image}" class="d-block w-100 h-100" alt="${juego.name}" style="object-fit: cover;">
@@ -43,8 +45,8 @@ function renderizarCarrusel(juegos) {
                     <span class="insignia-hero mb-3 d-inline-block">V ${juego.rating}</span>
                     <h5 class="titulo-hero">${juego.name}</h5>
                     <div class="d-flex gap-3 mt-4">
-                        <button class="btn btn-principal btn-lg" onclick="window.location.href='detalles.html?id=${juego.id}'">Comprar Ahora 🛒</button>
-                        <button class="btn btn-secundario btn-lg" onclick="window.location.href='detalles.html?id=${juego.id}'">Ver Detalles ➔</button>
+                        <button class="btn btn-principal w-100 mb-2" onclick="if(window.agregarAlCarrito) window.agregarAlCarrito('${juego.id}', '${juego.name.replace(/'/g, "\\'")}', '${precioAleatorio}', '${juego.background_image}')">Añadir al Carrito 🛒</button>
+                        <button class="btn btn-outline-light w-100" onclick="window.location.href='Detalles.html?id=${juego.id}'">Ver Detalles</button>
                     </div>
                 </div>
             </div>
@@ -69,9 +71,10 @@ function renderizarGrilla(juegos) {
                     </div>
                     <div class="card-body d-flex flex-column text-start">
                         <h6 class="card-title text-truncate mb-3" title="${juego.name}">${juego.name}</h6>
-                        <div class="mt-auto d-flex justify-content-between align-items-center">
-                            <span class="text-precio fs-5">$${precioAleatorio}</span>
-                            <button class="btn btn-principal btn-sm" onclick="window.location.href='detalles.html?id=${juego.id}'">Ver ➔</button>
+                        <div class="mt-auto d-flex flex-column gap-2">
+                            <span class="text-precio fs-5 mb-1">$${precioAleatorio}</span>
+                            <button class="btn btn-principal btn-sm w-100" onclick="if(window.agregarAlCarrito) window.agregarAlCarrito('${juego.id}', '${juego.name.replace(/'/g, "\\'")}', '${precioAleatorio}', '${juego.background_image}')">Añadir al Carrito 🛒</button>
+                            <button class="btn btn-outline-light btn-sm w-100" onclick="window.location.href='Detalles.html?id=${juego.id}'">Ver Detalles</button>
                         </div>
                     </div>
                 </div>
@@ -179,9 +182,7 @@ function ejecutarBusqueda(termino) {
         .catch(error => console.log(error)); 
 }
 
-// ==========================================
-// SECCIÓN: DATOS QUEMADOS - MERCHANDISING
-// ==========================================
+// --- Inicio: Datos Estáticos Merchandising ---
 
 const listaMerch = [
     {
@@ -270,11 +271,9 @@ const listaMerch = [
     }
 ];
 
-// Captura de los nuevos elementos del DOM
 const selectCategoria = document.getElementById('filtro-categoria');
 const contenedorMerch = document.getElementById('contenedor-merch-grilla');
 
-// Función encargada de renderizar los productos estáticos en el DOM
 function renderizarMerch(productos) {
     contenedorMerch.innerHTML = '';
     
@@ -290,7 +289,7 @@ function renderizarMerch(productos) {
                         <h6 class="card-title text-truncate mb-3" title="${producto.name}">${producto.name}</h6>
                         <div class="mt-auto d-flex justify-content-between align-items-center">
                             <span class="text-precio fs-5">$${producto.price}</span>
-                            <button class="btn btn-principal btn-sm">Añadir 🛒</button>
+                            <button class="btn btn-principal btn-sm" onclick="if(window.agregarAlCarrito) window.agregarAlCarrito('${producto.id}_merch', '${producto.name.replace(/'/g, "\\'")}', '${producto.price}', '${producto.image}', '${producto.category}')">Añadir 🛒</button>
                         </div>
                     </div>
                 </div>
@@ -299,31 +298,25 @@ function renderizarMerch(productos) {
         contenedorMerch.innerHTML += tarjetaMerchHtml;
     });
 }
+// --- Fin: Datos Estáticos Merchandising ---
 
-// Escuchador de eventos para el select de filtrado
+// --- Inicio: Lógica de Filtrado ---
 selectCategoria.addEventListener('change', (e) => {
     const opcionSeleccionada = e.target.value;
     
     if (opcionSeleccionada === 'merch') {
-        // 1. Cambiar visibilidad de las grillas
         contenedorGrilla.style.display = 'none';
         contenedorMerch.style.display = 'flex';
-        
-        // 2. Modificar dinámicamente el título principal de la sección
         tituloCatalogo.textContent = "Merchandising & Artículos de Colección";
-        
-        // 3. Renderizar los datos quemados
         renderizarMerch(listaMerch);
     } else {
-        // Si se selecciona cualquier otra opción (todos, acción, rpg, etc.) volver a la API
         contenedorMerch.style.display = 'none';
         contenedorGrilla.style.display = 'flex';
         
         if (opcionSeleccionada === 'todos') {
             tituloCatalogo.textContent = "Video Juegos Destacados";
-            cargarDatosRawg(); // Vuelve a rellenar la grilla original con datos de la API
+            cargarDatosRawg(); 
         } else {
-            // Aquí puedes mapear en el futuro búsquedas automáticas por género a la API si lo requieres
             tituloCatalogo.textContent = `Videojuegos: Categoria ${opcionSeleccionada.toUpperCase()}`;
             ejecutarBusqueda(opcionSeleccionada);
         }
