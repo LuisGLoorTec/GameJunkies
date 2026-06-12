@@ -164,7 +164,7 @@ function cargarResenas(idJuego) {
     
     let html = '';
     resenasGuardadas.forEach(resena => {
-        const estrellas = '<span class="material-symbols-outlined text-warning" style="font-variation-settings: \\'FILL\\' 1; font-size: 1.2rem;">star</span>'.repeat(resena.rating);
+        const estrellas = `<span class="material-symbols-outlined text-warning" style="font-variation-settings: 'FILL' 1; font-size: 1.2rem;">star</span>`.repeat(resena.rating);
         html += `
             <div class="card mb-3" style="background-color: transparent; border-color: var(--borde-sutil); border-left: 4px solid var(--color-secundario);">
                 <div class="card-body">
