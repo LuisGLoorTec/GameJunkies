@@ -323,3 +323,10 @@ function cargarFooter() {
     // Inyectar justo antes de cerrar el body
     document.body.insertAdjacentHTML('beforeend', footerHTML);
 }
+
+// Cargar el script del asistente IA dinámicamente
+document.addEventListener('DOMContentLoaded', () => {
+    const scriptAsistente = document.createElement('script');
+    scriptAsistente.src = '../JavaScript/asistente.js';
+    document.body.appendChild(scriptAsistente);
+});
