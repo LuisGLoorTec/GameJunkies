@@ -1,3 +1,11 @@
+// Inyectar Google Material Icons globalmente
+if (!document.querySelector('link[href*="Material+Symbols+Outlined"]')) {
+    const fontLink = document.createElement('link');
+    fontLink.rel = 'stylesheet';
+    fontLink.href = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200';
+    document.head.appendChild(fontLink);
+}
+
 // Función para cargar el Navbar dinámicamente
 function cargarNavbar() {
     const inHTMLFolder = window.location.pathname.includes('/HTML/');
@@ -29,11 +37,13 @@ function cargarNavbar() {
 
                 <div class="d-flex gap-2 align-items-center">
                     <button id="btn-tema" class="btn btn-tema-custom rounded-circle" title="Cambiar Tema" style="width: 40px; height: 40px; display:flex; align-items:center; justify-content:center;">
-                        🌓
+                        <span class="material-symbols-outlined fs-5">contrast</span>
                     </button>
                     <button type="button" class="btn btn-secundario" data-bs-toggle="modal" data-bs-target="#modalLogin">Iniciar Sesión</button>
                     <button type="button" class="btn btn-principal" data-bs-toggle="modal" data-bs-target="#modalRegistro">Registrarse</button>
-                    <button class="btn btn-outline-warning ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCarrito" id="btn-mini-carrito">🛒 (0)</button>
+                    <button class="btn btn-outline-warning ms-2 d-flex align-items-center gap-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCarrito" id="btn-mini-carrito">
+                        <span class="material-symbols-outlined fs-5">shopping_cart</span> (0)
+                    </button>
                 </div>
             </div>         
         </div>     
@@ -297,9 +307,15 @@ function cargarFooter() {
                 <div class="col-lg-4 col-md-12">
                     <h6 class="fw-bold mb-3" style="color: var(--texto-principal);">Comunidad</h6>
                     <div class="d-flex gap-3 mb-4">
-                        <a href="#" class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center p-0" style="width: 40px; height: 40px;">🐦</a>
-                        <a href="#" class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center p-0" style="width: 40px; height: 40px;">🎮</a>
-                        <a href="#" class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center p-0" style="width: 40px; height: 40px;">📺</a>
+                        <a href="#" class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center p-0 border-0" style="width: 40px; height: 40px; transition: transform 0.3s ease;">
+                            <img src="${rootPath}img/personalizacion/Facebook.png" style="width: 32px; height: 32px; object-fit: contain;" alt="Facebook">
+                        </a>
+                        <a href="#" class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center p-0 border-0" style="width: 40px; height: 40px; transition: transform 0.3s ease;">
+                            <img src="${rootPath}img/personalizacion/Discord.png" style="width: 32px; height: 32px; object-fit: contain;" alt="Discord">
+                        </a>
+                        <a href="#" class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center p-0 border-0" style="width: 40px; height: 40px; transition: transform 0.3s ease;">
+                            <img src="${rootPath}img/personalizacion/YouTube.png" style="width: 32px; height: 32px; object-fit: contain;" alt="YouTube">
+                        </a>
                     </div>
                 </div>
             </div>

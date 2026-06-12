@@ -55,7 +55,7 @@ window.toggleDeseo = function(id, name, price, image, buttonElement) {
             addedAt: new Date().toISOString()
         });
         agregado = true;
-        if(window.mostrarToast) window.mostrarToast(`"${name}" añadido a tu lista de deseos ❤️`, 'success');
+        if(window.mostrarToast) window.mostrarToast(`"${name}" añadido a tu lista de deseos <span class="material-symbols-outlined fs-6 align-text-bottom">favorite</span>`, 'success');
     }
 
     // Guardar cambios en el usuario actual
@@ -74,11 +74,11 @@ window.toggleDeseo = function(id, name, price, image, buttonElement) {
         if (agregado) {
             buttonElement.classList.remove('btn-outline-danger');
             buttonElement.classList.add('btn-danger');
-            buttonElement.innerHTML = '❤️';
+            buttonElement.innerHTML = '<span class="material-symbols-outlined fs-5">favorite</span>';
         } else {
             buttonElement.classList.remove('btn-danger');
             buttonElement.classList.add('btn-outline-danger');
-            buttonElement.innerHTML = '🤍';
+            buttonElement.innerHTML = '<span class="material-symbols-outlined fs-5">favorite_border</span>';
         }
     }
     
@@ -99,17 +99,17 @@ window.actualizarCorazonesUI = function() {
             btn.classList.remove('btn-outline-danger');
             btn.classList.add('btn-danger');
             if (btn.classList.contains('texto-largo')) {
-                btn.innerHTML = '❤️ Quitar de Deseos';
+                btn.innerHTML = '<span class="material-symbols-outlined fs-5 align-text-bottom">favorite</span> Quitar de Deseos';
             } else {
-                btn.innerHTML = '❤️';
+                btn.innerHTML = '<span class="material-symbols-outlined fs-5">favorite</span>';
             }
         } else {
             btn.classList.remove('btn-danger');
             btn.classList.add('btn-outline-danger');
             if (btn.classList.contains('texto-largo')) {
-                btn.innerHTML = '🤍 Añadir a Deseos';
+                btn.innerHTML = '<span class="material-symbols-outlined fs-5 align-text-bottom">favorite_border</span> Añadir a Deseos';
             } else {
-                btn.innerHTML = '🤍';
+                btn.innerHTML = '<span class="material-symbols-outlined fs-5">favorite_border</span>';
             }
         }
     });

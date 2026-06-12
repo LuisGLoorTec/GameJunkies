@@ -105,8 +105,8 @@ function renderizarCarrito() {
                     <strong class="text-precio fs-5">$${(parseFloat(item.price) * item.quantity).toFixed(2)}</strong>
                 </div>
                 <div class="col-md-1 col-4 mt-3 mt-md-0 text-end">
-                    <button class="btn btn-sm btn-outline-danger" title="Eliminar del carrito" onclick="eliminarItem(${index})">
-                        🗑️
+                    <button class="btn btn-sm btn-outline-danger d-flex align-items-center justify-content-center p-2" title="Eliminar del carrito" onclick="eliminarItem(${index})">
+                        <span class="material-symbols-outlined fs-6">delete</span>
                     </button>
                 </div>
             </div>

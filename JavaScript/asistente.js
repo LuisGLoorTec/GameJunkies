@@ -1,15 +1,20 @@
 (function() {
+    const inHTMLFolder = window.location.pathname.includes('/HTML/');
+    const basePath = inHTMLFolder ? '../' : '';
+    const imgAstroBot = `${basePath}img/personalizacion/AstroBot.jpg`;
+
     // 1. Inyectar la interfaz del Asistente en el Body
     const chatbotHTML = `
-        <!-- Botón Flotante -->
-        <button id="btn-abrir-chatbot" class="btn-chatbot-flotante" title="Hablar con JunkieBro">
-            🤖
+        <button id="btn-abrir-chatbot" class="btn-chatbot-flotante d-flex align-items-center justify-content-center overflow-hidden p-0 border-0" title="Hablar con JunkieBro">
+            <img src="${imgAstroBot}" style="width: 100%; height: 100%; object-fit: cover;" alt="JunkieBro">
         </button>
 
         <!-- Ventana del Chatbot -->
         <div id="ventana-chatbot" class="chatbot-ventana">
             <div class="chatbot-header">
-                <h5>🤖 JunkieBro</h5>
+                <h5 class="d-flex align-items-center gap-2 m-0">
+                    <img src="${imgAstroBot}" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;" alt="JunkieBro"> JunkieBro
+                </h5>
                 <button id="btn-cerrar-chatbot" class="chatbot-cerrar">&times;</button>
             </div>
             
@@ -63,7 +68,7 @@
         },
         {
             role: "assistant",
-            content: "¡De una, bro! Soy JunkieBro, listo para encontrar tu próxima obsesión aquí en GameJunkies. 🎮✨ ¿Qué género traes en mente?"
+            content: "¡De una, bro! Soy JunkieBro, listo para encontrar tu próxima obsesión aquí en GameJunkies. <span class='material-symbols-outlined fs-6 align-text-bottom'>sports_esports</span><span class='material-symbols-outlined fs-6 align-text-bottom'>auto_awesome</span> ¿Qué género traes en mente?"
         }
     ];
 
@@ -139,7 +144,7 @@
         } catch (error) {
             console.error('Error con Groq:', error);
             ocultarEscribiendo();
-            agregarMensajeUI("¡Oh no, manco! Parece que mi conexión al servidor de GameJunkies se cayó. 🔌 Intenta preguntar de nuevo en un momento.", 'ia');
+            agregarMensajeUI("¡Oh no, manco! Parece que mi conexión al servidor de GameJunkies se cayó. <span class='material-symbols-outlined fs-6 align-text-bottom'>power_off</span> Intenta preguntar de nuevo en un momento.", 'ia');
         }
     }
 

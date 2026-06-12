@@ -60,13 +60,13 @@ function renderizarPantallaDetalle(juego) {
                 </p>
                 
                 <div class="mt-auto pt-4 d-flex flex-column flex-md-row gap-3">
-                    <button class="btn btn-lg fw-bold btn-carrito-add flex-grow-1" style="background-color: var(--color-principal); color: #ffffff; transition: all 0.3s ease; box-shadow: 0 0 15px var(--color-principal);">
-                        🛒 Añadir al Carrito
+                    <button class="btn btn-lg fw-bold btn-carrito-add flex-grow-1 d-flex align-items-center justify-content-center gap-2" style="background-color: var(--color-principal); color: #ffffff; transition: all 0.3s ease; box-shadow: 0 0 15px var(--color-principal);">
+                        <span class="material-symbols-outlined">shopping_cart</span> Añadir al Carrito
                     </button>
-                    <button class="btn btn-outline-danger btn-lg fw-bold btn-deseo texto-largo flex-grow-1" 
+                    <button class="btn btn-outline-danger btn-lg fw-bold btn-deseo texto-largo flex-grow-1 d-flex align-items-center justify-content-center gap-2" 
                             data-id="${juego.id}"
                             onclick="if(window.toggleDeseo) window.toggleDeseo('${juego.id}', '${juego.name.replace(/'/g, "\\'")}', '${precioAleatorio}', '${juego.background_image}', this)">
-                        🤍 Añadir a Deseos
+                        <span class="material-symbols-outlined fs-5">favorite_border</span> Añadir a Deseos
                     </button>
                     <a href="${window.location.pathname.includes('/HTML/') ? '../index.html' : 'index.html'}" class="btn btn-secundario btn-lg flex-grow-1">Volver</a>
                 </div>
@@ -105,11 +105,11 @@ function renderizarPantallaDetalle(juego) {
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label text-muted">Calificación</label>
                                         <select id="resena-rating" class="form-select select-filtro">
-                                            <option value="5">⭐⭐⭐⭐⭐ (Excelente)</option>
-                                            <option value="4">⭐⭐⭐⭐ (Muy Bueno)</option>
-                                            <option value="3">⭐⭐⭐ (Bueno)</option>
-                                            <option value="2">⭐⭐ (Regular)</option>
-                                            <option value="1">⭐ (Malo)</option>
+                                            <option value="5">★★★★★ (Excelente)</option>
+                                            <option value="4">★★★★ (Muy Bueno)</option>
+                                            <option value="3">★★★ (Bueno)</option>
+                                            <option value="2">★★ (Regular)</option>
+                                            <option value="1">★ (Malo)</option>
                                         </select>
                                     </div>
                                 </div>
@@ -164,7 +164,7 @@ function cargarResenas(idJuego) {
     
     let html = '';
     resenasGuardadas.forEach(resena => {
-        const estrellas = '⭐'.repeat(resena.rating);
+        const estrellas = '<span class="material-symbols-outlined text-warning" style="font-variation-settings: \\'FILL\\' 1; font-size: 1.2rem;">star</span>'.repeat(resena.rating);
         html += `
             <div class="card mb-3" style="background-color: transparent; border-color: var(--borde-sutil); border-left: 4px solid var(--color-secundario);">
                 <div class="card-body">
