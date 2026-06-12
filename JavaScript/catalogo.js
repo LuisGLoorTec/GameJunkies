@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="mt-auto d-flex flex-column gap-2">
                                 <span class="text-precio fs-5 mb-1">$${precioAleatorio}</span>
                                 <button class="btn btn-principal btn-sm w-100 fw-bold" onclick="if(window.agregarAlCarrito) window.agregarAlCarrito('${juego.id}', '${juego.name.replace(/'/g, "\\'")}', '${precioAleatorio}', '${imagen}')">Añadir al Carrito 🛒</button>
-                                <button class="btn btn-outline-light btn-sm w-100" onclick="window.location.href='Detalles.html?id=${juego.id}'">Ver Detalles</button>
+                                <button class="btn btn-tema-custom btn-sm w-100" onclick="window.location.href='Detalles.html?id=${juego.id}'">Ver Detalles</button>
                             </div>
                         </div>
                     </div>

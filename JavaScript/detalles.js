@@ -68,7 +68,7 @@ function renderizarPantallaDetalle(juego) {
                             onclick="if(window.toggleDeseo) window.toggleDeseo('${juego.id}', '${juego.name.replace(/'/g, "\\'")}', '${precioAleatorio}', '${juego.background_image}', this)">
                         🤍 Añadir a Deseos
                     </button>
-                    <a href="GameJunkies.html" class="btn btn-secundario btn-lg flex-grow-1">Volver</a>
+                    <a href="${window.location.pathname.includes('/HTML/') ? '../index.html' : 'index.html'}" class="btn btn-secundario btn-lg flex-grow-1">Volver</a>
                 </div>
             </div>
         </div>

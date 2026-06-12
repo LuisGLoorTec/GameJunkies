@@ -20,11 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (modalLogin) {
                     modalLogin.show();
                 } else {
-                    window.location.href = 'Login.html';
+                    window.location.href = window.location.pathname.includes('/HTML/') ? 'Login.html' : 'HTML/Login.html';
                 }
                 return;
             }
-            window.location.href = 'Checkout.html';
+            window.location.href = window.location.pathname.includes('/HTML/') ? 'Checkout.html' : 'HTML/Checkout.html';
         });
     }
 });
@@ -74,7 +74,7 @@ function renderizarCarrito() {
         contenedor.innerHTML = `
             <div class="text-center py-5">
                 <h4 class="text-muted mb-4">Tu carrito está vacío</h4>
-                <a href="GameJunkies.html" class="btn btn-principal">Explorar Catálogo</a>
+                <a href="${window.location.pathname.includes('/HTML/') ? '../index.html' : 'index.html'}" class="btn btn-principal">Explorar Catálogo</a>
             </div>
         `;
         actualizarResumen(0);

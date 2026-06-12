@@ -87,7 +87,7 @@ function renderizarCarrusel(juegos) {
                     <h5 class="titulo-hero">${juego.name}</h5>
                     <div class="d-flex gap-3 mt-4">
                         <button class="btn btn-principal w-100 mb-2" onclick="if(window.agregarAlCarrito) window.agregarAlCarrito('${juego.id}', '${juego.name.replace(/'/g, "\\'")}', '${precioAleatorio}', '${juego.background_image}')">Añadir al Carrito 🛒</button>
-                        <button class="btn btn-outline-light w-100" onclick="window.location.href='Detalles.html?id=${juego.id}'">Ver Detalles</button>
+                        <button class="btn btn-tema-custom w-100" onclick="window.location.href=window.location.pathname.includes('/HTML/') ? 'Detalles.html?id=${juego.id}' : 'HTML/Detalles.html?id=${juego.id}'">Ver Detalles</button>
                     </div>
                 </div>
             </div>
@@ -127,7 +127,7 @@ function renderizarCarruselEstrenos(juegos) {
                         <div class="mt-auto d-flex flex-column gap-2">
                             <span class="text-precio fs-5 mb-1">$${precioAleatorio}</span>
                             <button class="btn btn-principal btn-sm w-100" onclick="if(window.agregarAlCarrito) window.agregarAlCarrito('${juego.id}', '${juego.name.replace(/'/g, "\\'")}', '${precioAleatorio}', '${juego.background_image}')">Añadir al Carrito 🛒</button>
-                            <button class="btn btn-outline-light btn-sm w-100" onclick="window.location.href='Detalles.html?id=${juego.id}'">Ver Detalles</button>
+                            <button class="btn btn-tema-custom btn-sm w-100" onclick="window.location.href=window.location.pathname.includes('/HTML/') ? 'Detalles.html?id=${juego.id}' : 'HTML/Detalles.html?id=${juego.id}'">Ver Detalles</button>
                         </div>
                     </div>
                 </div>
@@ -167,7 +167,7 @@ function renderizarGrilla(juegos, contenedorId = 'contenedor-juegos-grilla') {
                         <div class="mt-auto d-flex flex-column gap-2">
                             <span class="text-precio fs-5 mb-1">$${precioAleatorio}</span>
                             <button class="btn btn-principal btn-sm w-100" onclick="if(window.agregarAlCarrito) window.agregarAlCarrito('${juego.id}', '${juego.name.replace(/'/g, "\\'")}', '${precioAleatorio}', '${juego.background_image}')">Añadir al Carrito 🛒</button>
-                            <button class="btn btn-outline-light btn-sm w-100" onclick="window.location.href='Detalles.html?id=${juego.id}'">Ver Detalles</button>
+                            <button class="btn btn-tema-custom btn-sm w-100" onclick="window.location.href=window.location.pathname.includes('/HTML/') ? 'Detalles.html?id=${juego.id}' : 'HTML/Detalles.html?id=${juego.id}'">Ver Detalles</button>
                         </div>
                     </div>
                 </div>
@@ -257,7 +257,7 @@ function mostrarSugerencias(juegos) {
 
 
         li.addEventListener('click', () => {
-            window.location.href = `detalles.html?id=${juego.id}`; 
+            window.location.href = window.location.pathname.includes('/HTML/') ? `Detalles.html?id=${juego.id}` : `HTML/Detalles.html?id=${juego.id}`; 
         });
 
         listaSugerencias.appendChild(li);

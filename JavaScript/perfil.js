@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Redirigir al inicio después de un segundo
                 setTimeout(() => {
-                    window.location.href = 'GameJunkies.html';
+                    window.location.href = window.location.pathname.includes('/HTML/') ? '../index.html' : 'index.html';
                 }, 1500);
             }
         });

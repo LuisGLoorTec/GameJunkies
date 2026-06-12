@@ -108,8 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (window.actualizarNavbarAuth) window.actualizarNavbarAuth();
             } else {
                 setTimeout(() => {
-                    window.location.href = 'GameJunkies.html';
-                }, 1000);
+                    window.location.href = window.location.pathname.includes('/HTML/') ? '../index.html' : 'index.html';
+                }, 1500);
             }
         } else {
             if(window.mostrarToast) window.mostrarToast('Credenciales incorrectas', 'error');

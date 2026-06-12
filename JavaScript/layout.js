@@ -1,9 +1,13 @@
 // Función para cargar el Navbar dinámicamente
 function cargarNavbar() {
+    const inHTMLFolder = window.location.pathname.includes('/HTML/');
+    const basePath = inHTMLFolder ? '' : 'HTML/';
+    const rootPath = inHTMLFolder ? '../' : '';
+
     const navbarHTML = `
     <nav class="navbar navbar-expand-lg navbar-custom py-3 fixed-top">         
         <div class="container-fluid px-4">             
-            <a class="navbar-brand d-flex align-items-center" href="GameJunkies.html">                 
+            <a class="navbar-brand d-flex align-items-center" href="${rootPath}index.html">                 
                 <span>GAME</span><span class="marca-resaltada">JUNKIES</span>             
             </a>                          
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarPrincipal" aria-controls="navbarPrincipal" aria-expanded="false" aria-label="Toggle navigation">                 
@@ -11,9 +15,9 @@ function cargarNavbar() {
             </button>                          
             <div class="collapse navbar-collapse" id="navbarPrincipal">                 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center ms-4">                                          
-                    <li class="nav-item"><a class="nav-link" href="Catalogo.html">Catálogo</a></li>                     
-                    <li class="nav-item"><a class="nav-link" href="Subastas.html">Subastas</a></li>                     
-                    <li class="nav-item"><a class="nav-link" href="Perfil.html">Perfil</a></li>                     
+                    <li class="nav-item"><a class="nav-link" href="${basePath}Catalogo.html">Catálogo</a></li>                     
+                    <li class="nav-item"><a class="nav-link" href="${basePath}Subastas.html">Subastas</a></li>                     
+                    <li class="nav-item"><a class="nav-link" href="${basePath}Perfil.html">Perfil</a></li>                     
                 </ul>             
                 
                 <div class="d-flex align-items-center position-relative me-4">
@@ -59,7 +63,7 @@ function cargarNavbar() {
                     <div class="text-center text-muted">
                         ¿No tienes cuenta? <a href="#" data-bs-toggle="modal" data-bs-target="#modalRegistro" data-bs-dismiss="modal" class="text-decoration-none" style="color: var(--color-principal);">Regístrate aquí</a>
                         <br><br>
-                        <a href="Login.html" class="text-decoration-none" style="font-size: 0.85rem; color: var(--texto-apagado);">Ir a pantalla completa de login</a>
+                        <a href="${basePath}Login.html" class="text-decoration-none" style="font-size: 0.85rem; color: var(--texto-apagado);">Ir a pantalla completa de login</a>
                     </div>
                 </div>
             </div>
@@ -97,7 +101,7 @@ function cargarNavbar() {
                     <div class="text-center text-muted">
                         ¿Ya tienes cuenta? <a href="#" data-bs-toggle="modal" data-bs-target="#modalLogin" data-bs-dismiss="modal" class="text-decoration-none" style="color: var(--color-principal);">Inicia Sesión aquí</a>
                         <br><br>
-                        <a href="Registro.html" class="text-decoration-none" style="font-size: 0.85rem; color: var(--texto-apagado);">Ir a pantalla completa de registro</a>
+                        <a href="${basePath}Registro.html" class="text-decoration-none" style="font-size: 0.85rem; color: var(--texto-apagado);">Ir a pantalla completa de registro</a>
                     </div>
                 </div>
             </div>
@@ -120,7 +124,7 @@ function cargarNavbar() {
                     <span class="fw-bold fs-5">Subtotal:</span>
                     <span class="fw-bold fs-5 text-precio" id="mini-carrito-total">$0.00</span>
                 </div>
-                <a href="Carrito.html" class="btn btn-principal w-100 py-2 fw-bold">Proceder al Pago</a>
+                <a href="${basePath}Carrito.html" class="btn btn-principal w-100 py-2 fw-bold">Proceder al Pago</a>
             </div>
         </div>
     </div>
@@ -230,7 +234,7 @@ function actualizarNavbarAuth() {
             authContainer.id = 'auth-logged-in';
             
             // Buscar primero el botón de mini carrito (el offcanvas)
-            const carrito = document.getElementById('btn-mini-carrito') || document.querySelector('.navbar a[href="Carrito.html"]');
+            const carrito = document.getElementById('btn-mini-carrito') || document.querySelector('.navbar a[href$="Carrito.html"]');
             
             if (carrito && parent.contains(carrito)) {
                 parent.insertBefore(authContainer, carrito);
@@ -241,7 +245,7 @@ function actualizarNavbarAuth() {
         
         authContainer.innerHTML = `
             <span class="me-2 fw-bold" style="color: var(--texto-principal);">Hola, ${usuarioActual.nombre.split(' ')[0]}</span>
-            <a href="Perfil.html" class="btn btn-tema-custom btn-sm">Mi Perfil</a>
+            <button onclick="window.location.href=window.location.pathname.includes('/HTML/') ? 'Perfil.html' : 'HTML/Perfil.html'" class="btn btn-tema-custom btn-sm">Mi Perfil</button>
             <button id="btn-logout" class="btn btn-danger btn-sm">Salir</button>
         `;
         
@@ -257,12 +261,16 @@ function actualizarNavbarAuth() {
 
 // Función para cargar el Footer dinámicamente
 function cargarFooter() {
+    const inHTMLFolder = window.location.pathname.includes('/HTML/');
+    const basePath = inHTMLFolder ? '' : 'HTML/';
+    const rootPath = inHTMLFolder ? '../' : '';
+
     const footerHTML = `
     <footer class="mt-5 border-top" style="background-color: var(--fondo-oscuro); border-color: var(--borde-sutil) !important;">
         <div class="container py-5">
             <div class="row gy-4">
                 <div class="col-lg-4 col-md-6">
-                    <a class="navbar-brand d-flex align-items-center mb-3" href="GameJunkies.html" style="font-size: 1.5rem;">
+                    <a class="navbar-brand d-flex align-items-center mb-3" href="${rootPath}index.html" style="font-size: 1.5rem;">
                         <span style="color: var(--texto-principal); font-weight: bold;">GAME</span><span class="marca-resaltada">JUNKIES</span>
                     </a>
                     <p class="text-muted small mb-4">La tienda definitiva para gamers exigentes. Descubre, compra y juega los mejores títulos en un solo lugar.</p>
@@ -271,9 +279,9 @@ function cargarFooter() {
                 <div class="col-lg-2 col-md-3 col-6">
                     <h6 class="fw-bold mb-3" style="color: var(--texto-principal);">Empresa</h6>
                     <ul class="list-unstyled mb-0">
-                        <li class="mb-2"><a href="Nosotros.html" class="text-muted text-decoration-none hover-text-principal transition">Sobre Nosotros</a></li>
+                        <li class="mb-2"><a href="${basePath}Nosotros.html" class="text-muted text-decoration-none hover-text-principal transition">Sobre Nosotros</a></li>
                         <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-text-principal transition">Trabaja con Nosotros</a></li>
-                        <li class="mb-2"><a href="Contacto.html" class="text-muted text-decoration-none hover-text-principal transition">Contacto</a></li>
+                        <li class="mb-2"><a href="${basePath}Contacto.html" class="text-muted text-decoration-none hover-text-principal transition">Contacto</a></li>
                     </ul>
                 </div>
 
