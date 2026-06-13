@@ -198,14 +198,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Lógica para Modo Claro / Oscuro
     const btnTema = document.getElementById('btn-tema');
+    
+    const inHTMLFolderTema = window.location.pathname.includes('/HTML/');
+    const rootPathTema = inHTMLFolderTema ? '../' : '';
+
+    const iconoLuna = `<img src="${rootPathTema}img/icon/luna.webp" style="width: 28px; height: 28px; object-fit: contain;" alt="Modo Oscuro">`;
+    const iconoSol = `<img src="${rootPathTema}img/icon/sol.jpg" style="width: 28px; height: 28px; object-fit: cover; border-radius: 50%;" alt="Modo Claro">`;
 
     // Revisar si hay un tema guardado
     const temaGuardado = localStorage.getItem('tema');
     if (temaGuardado === 'claro') {
         document.body.classList.add('light-mode');
-        btnTema.textContent = '🌙'; // Icono para volver a oscuro
+        btnTema.innerHTML = iconoLuna; // Icono para volver a oscuro
     } else {
-        btnTema.textContent = '☀️'; // Icono para volver a claro
+        btnTema.innerHTML = iconoSol; // Icono para volver a claro
     }
 
     // Evento de click para alternar
@@ -214,11 +220,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (document.body.classList.contains('light-mode')) {
             localStorage.setItem('tema', 'claro');
-            btnTema.textContent = '🌙';
+            btnTema.innerHTML = iconoLuna;
             mostrarToast('Modo claro activado', 'success');
         } else {
             localStorage.setItem('tema', 'oscuro');
-            btnTema.textContent = '☀️';
+            btnTema.innerHTML = iconoSol;
             mostrarToast('Modo oscuro activado', 'success');
         }
     });

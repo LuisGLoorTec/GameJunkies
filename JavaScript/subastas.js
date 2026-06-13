@@ -100,7 +100,10 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <span class="input-group-text bid-input border-end-0">$</span>
                                 <input type="number" class="form-control bid-input border-start-0 fs-5" id="input-${subasta.id}" min="${minPuja}" value="${minPuja}" step="5">
                             </div>
-                            <button class="btn btn-principal w-100 fw-bold fs-5 py-2" onclick="realizarPuja('${subasta.id}')">PUJAR AHORA 🔨</button>
+                            <button class="btn btn-principal w-100 fw-bold fs-5 py-2 d-flex align-items-center justify-content-center gap-2" onclick="realizarPuja('${subasta.id}')">
+                                PUJAR AHORA 
+                                <img src="../img/icon/martillo.webp" style="width: 24px; height: 24px; object-fit: contain;" alt="Martillo">
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -175,6 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Re-renderizar con animación en la tarjeta afectada
         renderizarSubastas(idSubasta);
         
-        if (window.mostrarToast) window.mostrarToast('¡Puja realizada con éxito! Eres el nuevo líder 🔨.', 'success');
+        if (window.mostrarToast) window.mostrarToast('¡Puja realizada con éxito! Eres el nuevo líder <img src="../img/icon/martillo.webp" style="width: 20px; height: 20px; object-fit: contain; vertical-align: middle;">.', 'success');
     };
 });
