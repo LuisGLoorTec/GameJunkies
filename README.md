@@ -1,4 +1,4 @@
-# GameJunkies - E-Commerce de Videojuegos 🎮
+# GameJunkies - E-Commerce de Videojuegos
 
 **Instituto Superior Tecnológico Liceo Cristiano**
 **Carrera:** Tecnología Superior En Desarrollo De Software
@@ -8,14 +8,14 @@
 
 ---
 
-## 📖 Descripción del Proyecto
+## Descripción del Proyecto
 **GameJunkies** es una plataforma web e-commerce orientada exclusivamente al sector gaming que busca centralizar y resolver la fragmentación del mercado. La aplicación web permite a los usuarios comprar videojuegos, adquirir ropa y coleccionables (Merchandising), y participar en un novedoso sistema de subastas en vivo, todo en un solo ecosistema y bajo un diseño "dark mode" altamente inmersivo y profesional.
 
 **Problemática que resuelve:** Actualmente es difícil encontrar una sola página web que englobe todos los aspectos de la cultura gamer (juegos digitales, mercancía física y subastas). GameJunkies unifica estos servicios.
 
 ---
 
-## ⚙️ Tecnologías Utilizadas
+## Tecnologías Utilizadas
 El proyecto cumple estrictamente con los requerimientos técnicos de la materia, prescindiendo del uso de frameworks JS como React o Angular:
 - **Estructura:** HTML5 Semántico
 - **Estilos y Diseño:** CSS3 Puro (Variables, Flexbox, CSS Grid) y Bootstrap 5
@@ -23,13 +23,13 @@ El proyecto cumple estrictamente con los requerimientos técnicos de la materia,
 - **Almacenamiento Local:** Window `localStorage` (Simulación de Base de Datos y CRUD)
 - **Consumo de APIs Externas:** 
   - **RAWG Video Games Database API** (Catálogo principal de juegos)
-  - **OpenAI API** (Chatbot y Asistente Virtual)
-  - **DiceBear API** (Generación dinámica de avatares)
+  - **Groq API (Llama 3)** (Chatbot y Asistente Virtual)
+- **DiceBear API** (Generación dinámica de avatares)
 - **Librerías Visuales:** Animate On Scroll (AOS), Google Material Symbols, SweetAlert2.
 
 ---
 
-## 🚀 Funcionalidades Principales (15/15)
+## Funcionalidades Principales (15/15)
 1. Menú hamburger responsive.
 2. Sistema de pestañas (Perfil y Subastas).
 3. Modo oscuro/claro interactivo.
@@ -44,11 +44,11 @@ El proyecto cumple estrictamente con los requerimientos técnicos de la materia,
 12. Sistema de comentarios y reseñas de usuarios.
 13. **Sistema CRUD Completo (LocalStorage):** Gestión de Carrito de Compras, Historial de Pedidos y Lista de Favoritos (Añadir, Mostrar, Actualizar, Eliminar).
 14. Animaciones de entrada dinámicas al hacer scroll (AOS).
-15. Conexión nativa con Inteligencia Artificial (OpenAI) para atención al cliente.
+15. Conexión nativa con Inteligencia Artificial (Llama 3 vía Groq) para atención al cliente.
 
 ---
 
-## 🛠️ Instrucciones de Instalación y Ejecución
+## Instrucciones de Instalación y Ejecución
 Dado que el proyecto utiliza tecnologías frontend puras (Client-side), su ejecución es extremadamente sencilla:
 
 1. **Descomprimir:** Extrae el archivo `.zip` proporcionado.
@@ -64,10 +64,10 @@ Dado que el proyecto utiliza tecnologías frontend puras (Client-side), su ejecu
 
 ---
 
-## 👥 Créditos y Recursos Externos
+## Créditos y Recursos Externos
 - **Diseño UI/UX y Desarrollo Frontend:** Bruno Quiroz, Luis Gordillo.
 - **Catálogo de Juegos:** Proporcionado por la API pública de [RAWG.io](https://rawg.io/apidocs).
 - **Iconografía:** [Google Material Symbols](https://fonts.google.com/icons).
 - **Avatares Dinámicos:** [DiceBear API](https://www.dicebear.com/).
-- **Inteligencia Artificial:** Modelo `gpt-3.5-turbo` de [OpenAI](https://openai.com/).
+- **Inteligencia Artificial:** Modelo `Llama 3` vía la API de [Groq](https://groq.com/).
 - **Recursos Gráficos Extra:** Tenor (GIFs animados).
