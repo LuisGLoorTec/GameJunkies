@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="position-relative">
                             <img src="${imgRuta}" class="card-img-top w-100" alt="${subasta.name}" style="height: 250px; object-fit: cover;">
                             ${esLider ? '<span class="position-absolute top-0 end-0 m-2 badge bg-success px-2 py-1 fs-6">¡Vas Ganando! 👑</span>' : ''}
-                            <span class="position-absolute top-0 start-0 m-2 badge badge-merch px-2 py-1 fs-6">EN VIVO 🔴</span>
+                            <span class="position-absolute top-0 start-0 m-2 badge badge-merch px-2 py-1 fs-6 d-flex align-items-center gap-1">EN VIVO <span class="material-symbols-outlined text-danger" style="font-size: 14px; font-variation-settings: 'FILL' 1;">circle</span></span>
                         </div>
                         <div class="card-body d-flex flex-column text-start">
                             <h5 class="card-title mb-4 fw-bold" style="color: var(--texto-principal);">${subasta.name}</h5>

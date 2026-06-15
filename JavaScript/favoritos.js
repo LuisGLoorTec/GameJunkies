@@ -56,11 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="mt-auto d-flex flex-column gap-2">
                                 <button class="btn btn-principal btn-sm fw-bold w-100" 
                                         onclick="if(window.agregarAlCarrito) window.agregarAlCarrito('${item.id}', '${item.name.replace(/'/g, "\\'")}', '${item.price}', '${item.image}')">
-                                    Añadir al Carrito 🛒
+                                    <span class="material-symbols-outlined align-middle" style="font-size: 18px;">shopping_cart</span> Añadir al Carrito
                                 </button>
-                                <button class="btn btn-outline-danger btn-sm w-100" 
+                                <button class="btn btn-outline-danger btn-sm w-100 d-flex align-items-center justify-content-center gap-1" 
                                         onclick="removerDeListaDeseos('${item.id}', '${item.name.replace(/'/g, "\\'")}')">
-                                    ❌ Quitar de Lista
+                                    <span class="material-symbols-outlined" style="font-size: 18px;">delete</span> Quitar de Lista
                                 </button>
                             </div>
                         </div>

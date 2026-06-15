@@ -182,7 +182,7 @@ window.actualizarContadorCarrito = function() {
     
     const btnMiniCarrito = document.getElementById('btn-mini-carrito');
     if (btnMiniCarrito) {
-        btnMiniCarrito.innerHTML = `🛒 (${cantidadTotal})`;
+        btnMiniCarrito.innerHTML = `<span class="material-symbols-outlined" style="font-size: 18px;">shopping_cart</span> (${cantidadTotal})`;
         if (cantidadTotal > 0) {
             btnMiniCarrito.classList.replace('btn-outline-warning', 'btn-warning');
         } else {

@@ -6,10 +6,34 @@ function obtenerFiltroNsfw() {
 
 // Lista de baneo estricto por ID para juegos que esquivan los tags de la API
 window.BANNED_GAMES = [930650]; // ID de Charlie (Hazbin Hotel) mega porn pack 1
+window.BANNED_NAMES = ['red falls', 'shoot shoot my waifu', 'emi - new beginning'];
+window.BANNED_WORDS = ['hentai', 'porn', 'nude', 'nsfw', 'eroge', 'adult', 'sexual'];
 
 function limpiarJuegos(juegos) {
     if (!juegos) return [];
-    return juegos.filter(j => !window.BANNED_GAMES.includes(j.id));
+    return juegos.filter(j => {
+        // Bloqueo por ID
+        if (window.BANNED_GAMES.includes(j.id)) return false;
+        
+        // Bloqueo por nombre exacto
+        const nombreLower = j.name.toLowerCase();
+        if (window.BANNED_NAMES.some(name => nombreLower.includes(name))) return false;
+        
+        // Bloqueo por palabras inapropiadas en el título
+        if (window.BANNED_WORDS.some(word => nombreLower.includes(word))) return false;
+        
+        // Bloqueo estricto revisando los tags (si la API falló en filtrarlos)
+        if (j.tags && j.tags.length > 0) {
+            const tieneTagInapropiado = j.tags.some(t => {
+                const tagSlug = t.slug.toLowerCase();
+                return window.BANNED_WORDS.some(word => tagSlug.includes(word)) || 
+                       ['nudity', 'sexual-content'].includes(tagSlug);
+            });
+            if (tieneTagInapropiado) return false;
+        }
+        
+        return true;
+    });
 }
 
 const carruselInner = document.querySelector('#carruselJuegos .carousel-inner');
@@ -384,8 +408,8 @@ function renderizarMerch(productos) {
                     <div class="card-body d-flex flex-column text-start">
                         <h6 class="card-title text-truncate mb-3" title="${producto.name}">${producto.name}</h6>
                         <div class="mt-auto d-flex justify-content-between align-items-center">
-                            <span class="text-precio fs-5">$${producto.price}</span>
-                            <button class="btn btn-principal btn-sm" onclick="if(window.agregarAlCarrito) window.agregarAlCarrito('${producto.id}_merch', '${producto.name.replace(/'/g, "\\'")}', '${producto.price}', '${producto.image}', '${producto.category}')">Añadir 🛒</button>
+                            <span class="text-precio fs-5 fw-bold">$${producto.price}</span>
+                            <button class="btn btn-principal btn-sm fw-bold d-flex align-items-center gap-1" onclick="if(window.agregarAlCarrito) window.agregarAlCarrito('${producto.id}_merch', '${producto.name.replace(/'/g, "\\'")}', '${producto.price}', '${producto.image}', '${producto.category}')"><span class="material-symbols-outlined" style="font-size: 18px;">shopping_cart</span> Añadir</button>
                         </div>
                     </div>
                 </div>

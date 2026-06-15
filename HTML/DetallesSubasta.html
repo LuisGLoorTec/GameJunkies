@@ -62,7 +62,7 @@
                         const htmlDetalle = `
                             <div class="row p-4 rounded shadow-lg border" style="background-color: var(--panel-oscuro) !important; border-color: ${esLider ? 'var(--color-exito)' : 'var(--borde-sutil)'} !important; box-shadow: ${esLider ? '0 0 25px rgba(65, 187, 66, 0.3)' : 'none'} !important;">
                                 <div class="col-md-5 mb-4 mb-md-0 d-flex align-items-center justify-content-center position-relative" style="background-color: #1a1a1a; border-radius: 8px;">
-                                    <span class="position-absolute top-0 start-0 m-3 badge badge-merch px-3 py-2 fs-5">EN VIVO 🔴</span>
+                                    <span class="position-absolute top-0 start-0 m-3 badge badge-merch px-3 py-2 fs-5 d-flex align-items-center gap-2">EN VIVO <span class="material-symbols-outlined text-danger" style="font-size: 18px; font-variation-settings: 'FILL' 1;">circle</span></span>
                                     ${esLider ? '<span class="position-absolute top-0 end-0 m-3 badge bg-success px-3 py-2 fs-5">¡Vas Ganando! 👑</span>' : ''}
                                     <img src="${subastaFresca.image}" class="img-fluid rounded" alt="${subastaFresca.name}" style="max-height: 500px; object-fit: contain; cursor: pointer;" onclick="if(window.abrirLightbox) window.abrirLightbox('${subastaFresca.image}')" title="Haz clic para ampliar">
                                 </div>
