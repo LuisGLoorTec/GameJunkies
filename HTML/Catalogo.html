@@ -11,7 +11,7 @@
 </head>
 <body>
  
-    <main class="container-fluid px-4 mt-5 pt-4"> <!-- mt-5 pt-4 for navbar spacing -->
+    <main class="container-fluid px-4 mt-5 pt-4"> 
         <div class="row mb-4 align-items-center">             
             <div class="col-12 text-center">                 
                 <h2 id="titulo-pagina-catalogo" class="mb-2 fw-bold" style="color: var(--color-principal);">Catálogo Completo</h2>
@@ -19,7 +19,7 @@
             </div>             
         </div>         
         
-        <!-- Sección de Filtros -->
+
         <div class="card mb-5 border-0 shadow" style="background-color: var(--panel-oscuro) !important; color: var(--texto-principal) !important;">
             <div class="card-body p-4">
                 <div class="row g-3">
@@ -54,7 +54,7 @@
             </div>
         </div>
         
-        <!-- Resultados del Catálogo -->
+
         <div class="row mb-3">
             <div class="col-12 d-flex justify-content-between align-items-center">
                 <h4 style="color: var(--texto-principal);">Resultados de Búsqueda</h4>
@@ -71,13 +71,13 @@
         </div>
 
         <div id="contenedor-resultados-catalogo" class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4 mb-5">         
-            <!-- El contenido se inyectará aquí desde JS, o en su defecto mostramos un placeholder -->
+            
             <div class="col-12 w-100 text-center py-5">
                 <p class="text-muted fs-5">Selecciona tus filtros y haz clic en "Filtrar" para descubrir nuevos juegos.</p>
             </div>
         </div>     
 
-        <!-- Paginación -->
+
         <nav aria-label="Navegación de páginas del catálogo">
             <ul class="pagination justify-content-center mb-5 custom-pagination">
                 <li class="page-item disabled">
@@ -103,7 +103,6 @@
     <script src="../JavaScript/catalogo.js"></script>
     
     <script>
-        // Script simple para actualizar el valor visual del rango de precio
         document.addEventListener('DOMContentLoaded', () => {
             const rangoPrecio = document.getElementById('rango-precio');
             const valorRangoPrecio = document.getElementById('valor-rango-precio');

@@ -551,4 +551,13 @@ body.light-mode .toast-custom {
 @keyframes saltar {
     0%, 80%, 100% { transform: scale(0); }
     40% { transform: scale(1); }
+}
+
+/* Fix para que el hover glow no se corte */
+#contenedor-estrenos-inner .carousel-item,
+#contenedor-destacados,
+#contenedor-merch,
+#contenedor-subastas {
+    padding-top: 20px;
+    padding-bottom: 25px;
 }

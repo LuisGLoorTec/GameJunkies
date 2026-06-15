@@ -25,6 +25,7 @@ function cargarNavbar() {
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center ms-4">                                          
                     <li class="nav-item"><a class="nav-link" href="${basePath}Catalogo.html">Catálogo</a></li>                     
                     <li class="nav-item"><a class="nav-link" href="${basePath}Subastas.html">Subastas</a></li>                     
+                    <li class="nav-item"><a class="nav-link" href="${basePath}Merch.html">Merch</a></li>                     
                     <li class="nav-item"><a class="nav-link" href="${basePath}Perfil.html">Perfil</a></li>                     
                 </ul>             
                 
@@ -198,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Lógica para Modo Claro / Oscuro
     const btnTema = document.getElementById('btn-tema');
-    
+
     const inHTMLFolderTema = window.location.pathname.includes('/HTML/');
     const rootPathTema = inHTMLFolderTema ? '../' : '';
 
@@ -236,38 +237,38 @@ document.addEventListener('DOMContentLoaded', () => {
 // Función para actualizar visualmente el navbar
 function actualizarNavbarAuth() {
     const usuarioActual = JSON.parse(localStorage.getItem('usuarioActual'));
-    
+
     const btnLogin = document.querySelector('[data-bs-target="#modalLogin"]');
     const btnRegistro = document.querySelector('[data-bs-target="#modalRegistro"]');
-    
+
     if (usuarioActual && btnLogin && btnRegistro) {
         const parent = btnLogin.parentElement;
-        
+
         let authContainer = document.getElementById('auth-logged-in');
         if (!authContainer) {
             authContainer = document.createElement('div');
             authContainer.className = 'd-flex align-items-center gap-2';
             authContainer.id = 'auth-logged-in';
-            
+
             // Buscar primero el botón de mini carrito (el offcanvas)
             const carrito = document.getElementById('btn-mini-carrito') || document.querySelector('.navbar a[href$="Carrito.html"]');
-            
+
             if (carrito && parent.contains(carrito)) {
                 parent.insertBefore(authContainer, carrito);
             } else {
                 parent.appendChild(authContainer);
             }
         }
-        
+
         authContainer.innerHTML = `
             <span class="me-2 fw-bold" style="color: var(--texto-principal);">Hola, ${usuarioActual.nombre.split(' ')[0]}</span>
             <button onclick="window.location.href=window.location.pathname.includes('/HTML/') ? 'Perfil.html' : 'HTML/Perfil.html'" class="btn btn-tema-custom btn-sm">Mi Perfil</button>
             <button id="btn-logout" class="btn btn-danger btn-sm">Salir</button>
         `;
-        
+
         btnLogin.style.display = 'none';
         btnRegistro.style.display = 'none';
-        
+
         document.getElementById('btn-logout').addEventListener('click', () => {
             localStorage.removeItem('usuarioActual');
             window.location.reload();
@@ -341,7 +342,7 @@ function cargarFooter() {
         </div>
     </footer>
     `;
-    
+
     // Inyectar justo antes de cerrar el body
     document.body.insertAdjacentHTML('beforeend', footerHTML);
 }

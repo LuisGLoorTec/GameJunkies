@@ -113,21 +113,20 @@ function renderizarCarruselEstrenos(juegos) {
             const precioAleatorio = (Math.random() * (69.99 - 19.99) + 19.99).toFixed(2);
             bloqueHtml += `
             <div class="col">
-                <div class="card card-game h-100">
+                <div class="card card-game h-100" style="cursor: pointer;" onclick="window.location.href=window.location.pathname.includes('/HTML/') ? 'Detalles.html?id=${juego.id}' : 'HTML/Detalles.html?id=${juego.id}'">
                     <div class="position-relative">
                         <img src="${juego.background_image}" class="card-img-top img-poster w-100" alt="${juego.name}">
                         <span class="position-absolute top-0 end-0 m-2 badge bg-dark border border-secondary d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size: 14px;">star</span> ${juego.rating}</span>
                         <button class="btn btn-outline-danger btn-sm position-absolute top-0 start-0 m-2 rounded-circle btn-deseo d-flex align-items-center justify-content-center p-0" 
                                 style="width: 35px; height: 35px; background-color: rgba(18, 18, 18, 0.8);"
                                 data-id="${juego.id}"
-                                onclick="if(window.toggleDeseo) window.toggleDeseo('${juego.id}', '${juego.name.replace(/'/g, "\\'")}', '${precioAleatorio}', '${juego.background_image}', this)"><span class="material-symbols-outlined fs-5">favorite_border</span></button>
+                                onclick="event.stopPropagation(); if(window.toggleDeseo) window.toggleDeseo('${juego.id}', '${juego.name.replace(/'/g, "\\'")}', '${precioAleatorio}', '${juego.background_image}', this)"><span class="material-symbols-outlined fs-5">favorite_border</span></button>
                     </div>
                     <div class="card-body d-flex flex-column text-start">
                         <h6 class="card-title text-truncate mb-3" title="${juego.name}">${juego.name}</h6>
                         <div class="mt-auto d-flex flex-column gap-2">
                             <span class="text-precio fs-5 mb-1">$${precioAleatorio}</span>
-                            <button class="btn btn-principal btn-sm w-100 d-flex justify-content-center align-items-center gap-1" onclick="if(window.agregarAlCarrito) window.agregarAlCarrito('${juego.id}', '${juego.name.replace(/'/g, "\\'")}', '${precioAleatorio}', '${juego.background_image}')"><span class="material-symbols-outlined" style="font-size: 18px;">shopping_cart</span> Añadir al Carrito</button>
-                            <button class="btn btn-tema-custom btn-sm w-100" onclick="window.location.href=window.location.pathname.includes('/HTML/') ? 'Detalles.html?id=${juego.id}' : 'HTML/Detalles.html?id=${juego.id}'">Ver Detalles</button>
+                            <button class="btn btn-principal btn-sm w-100 d-flex justify-content-center align-items-center gap-1" onclick="event.stopPropagation(); if(window.agregarAlCarrito) window.agregarAlCarrito('${juego.id}', '${juego.name.replace(/'/g, "\\'")}', '${precioAleatorio}', '${juego.background_image}')"><span class="material-symbols-outlined" style="font-size: 18px;">shopping_cart</span> Añadir al Carrito</button>
                         </div>
                     </div>
                 </div>
@@ -153,21 +152,20 @@ function renderizarGrilla(juegos, contenedorId = 'contenedor-juegos-grilla') {
         
         const tarjetaHtml = `
             <div class="col">
-                <div class="card card-game h-100">
+                <div class="card card-game h-100" style="cursor: pointer;" onclick="window.location.href=window.location.pathname.includes('/HTML/') ? 'Detalles.html?id=${juego.id}' : 'HTML/Detalles.html?id=${juego.id}'">
                     <div class="position-relative">
                         <img src="${juego.background_image}" class="card-img-top img-poster w-100" alt="${juego.name}">
                         <span class="position-absolute top-0 end-0 m-2 badge bg-dark border border-secondary d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size: 14px;">star</span> ${juego.rating}</span>
                         <button class="btn btn-outline-danger btn-sm position-absolute top-0 start-0 m-2 rounded-circle btn-deseo d-flex align-items-center justify-content-center p-0" 
                                 style="width: 35px; height: 35px; background-color: rgba(18, 18, 18, 0.8);"
                                 data-id="${juego.id}"
-                                onclick="if(window.toggleDeseo) window.toggleDeseo('${juego.id}', '${juego.name.replace(/'/g, "\\'")}', '${precioAleatorio}', '${juego.background_image}', this)"><span class="material-symbols-outlined fs-5">favorite_border</span></button>
+                                onclick="event.stopPropagation(); if(window.toggleDeseo) window.toggleDeseo('${juego.id}', '${juego.name.replace(/'/g, "\\'")}', '${precioAleatorio}', '${juego.background_image}', this)"><span class="material-symbols-outlined fs-5">favorite_border</span></button>
                     </div>
                     <div class="card-body d-flex flex-column text-start">
                         <h6 class="card-title text-truncate mb-3" title="${juego.name}">${juego.name}</h6>
                         <div class="mt-auto d-flex flex-column gap-2">
                             <span class="text-precio fs-5 mb-1">$${precioAleatorio}</span>
-                            <button class="btn btn-principal btn-sm w-100 d-flex justify-content-center align-items-center gap-1" onclick="if(window.agregarAlCarrito) window.agregarAlCarrito('${juego.id}', '${juego.name.replace(/'/g, "\\'")}', '${precioAleatorio}', '${juego.background_image}')"><span class="material-symbols-outlined" style="font-size: 18px;">shopping_cart</span> Añadir al Carrito</button>
-                            <button class="btn btn-tema-custom btn-sm w-100" onclick="window.location.href=window.location.pathname.includes('/HTML/') ? 'Detalles.html?id=${juego.id}' : 'HTML/Detalles.html?id=${juego.id}'">Ver Detalles</button>
+                            <button class="btn btn-principal btn-sm w-100 d-flex justify-content-center align-items-center gap-1" onclick="event.stopPropagation(); if(window.agregarAlCarrito) window.agregarAlCarrito('${juego.id}', '${juego.name.replace(/'/g, "\\'")}', '${precioAleatorio}', '${juego.background_image}')"><span class="material-symbols-outlined" style="font-size: 18px;">shopping_cart</span> Añadir al Carrito</button>
                         </div>
                     </div>
                 </div>
