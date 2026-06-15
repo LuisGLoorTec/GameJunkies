@@ -24,10 +24,10 @@ async function cargarDatosRawg() {
         const urlCarrusel = `https://api.rawg.io/api/games?key=${apiKeyRawg}&dates=2016-01-01,2026-12-31&ordering=-added&metacritic=80,100&page_size=30${ocultarNsfw}`;
         
         // Petición 2: Grilla Destacados -> Juegos famosos desde el 2020 hasta el 2026 (-added)
-        const urlGrilla = `https://api.rawg.io/api/games?key=${apiKeyRawg}&dates=2020-01-01,2026-12-31&ordering=-added&page_size=40${ocultarNsfw}`;
+        const urlGrilla = `https://api.rawg.io/api/games?key=${apiKeyRawg}&dates=2018-01-01,2026-12-31&ordering=-added&page_size=40${ocultarNsfw}`;
         
         // Petición 3: Últimos Estrenos -> Lanzamientos muy recientes (2024) pero ordenados por popularidad (-added)
-        const urlEstrenos = `https://api.rawg.io/api/games?key=${apiKeyRawg}&dates=2024-01-01,2024-12-31&ordering=-added&page_size=15${ocultarNsfw}`;
+        const urlEstrenos = `https://api.rawg.io/api/games?key=${apiKeyRawg}&dates=2026-01-01,2026-12-31&ordering=-rating&page_size=15${ocultarNsfw}`;
 
         // Realizamos todas las consultas al mismo tiempo
         const [respCarrusel, respGrilla, respEstrenos] = await Promise.all([

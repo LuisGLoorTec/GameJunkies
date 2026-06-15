@@ -11,17 +11,23 @@ if (idJuego) {
 
 function cargarDetallesDelJuego(id) {
     const urlDetalle = `https://api.rawg.io/api/games/${id}?key=${apiKeyRawg}`;
+    const urlScreenshots = `https://api.rawg.io/api/games/${id}/screenshots?key=${apiKeyRawg}`;
 
-    fetch(urlDetalle)
-        .then(response => response.json())
-        .then(juego => renderizarPantallaDetalle(juego))
-        .catch(error => {
-            console.log("Error al cargar detalles:", error);
-            contenedorDetalle.innerHTML = '<h2 class="text-center mt-5 text-danger">Ocurrió un error al cargar el juego.</h2>';
-        });
+    Promise.all([
+        fetch(urlDetalle).then(res => res.json()),
+        fetch(urlScreenshots).then(res => res.json())
+    ])
+    .then(([juego, screenshotsData]) => renderizarPantallaDetalle(juego, screenshotsData.results))
+    .catch(error => {
+        console.log("Error al cargar detalles:", error);
+        contenedorDetalle.innerHTML = '<h2 class="text-center mt-5 text-danger">Ocurrió un error al cargar el juego.</h2>';
+    });
 }
 
-function renderizarPantallaDetalle(juego) {
+function renderizarPantallaDetalle(juego, screenshots) {
+    const usuarioActualInfo = JSON.parse(localStorage.getItem('usuarioActual'));
+    const nombreUsuario = usuarioActualInfo ? usuarioActualInfo.nombre : '';
+    const readOnlyAtributo = nombreUsuario ? 'readonly' : '';
 
     const precioAleatorio = (Math.random() * (69.99 - 19.99) + 19.99).toFixed(2);
     
@@ -31,10 +37,54 @@ function renderizarPantallaDetalle(juego) {
     const desarrollador = juego.developers && juego.developers.length > 0 ? juego.developers[0].name : 'Desconocido';
     const plataformas = juego.platforms ? juego.platforms.map(p => p.platform.name).join(', ') : 'N/A';
 
+    const imagenesGallery = screenshots ? screenshots.map(s => s.image) : [];
+    if (juego.background_image && !imagenesGallery.includes(juego.background_image)) {
+        imagenesGallery.unshift(juego.background_image);
+    }
+    const arrJSON = JSON.stringify(imagenesGallery).replace(/"/g, "&quot;");
+
+    const thumbnailsHtml = imagenesGallery.length > 1 ? `
+        <div class="d-flex gap-2 mt-3 overflow-auto pb-2" style="scrollbar-width: thin;">
+            ${imagenesGallery.slice(1, 5).map((img, i) => `
+                <img src="${img}" class="rounded border border-secondary" style="width: 80px; height: 50px; object-fit: cover; cursor: pointer; flex-shrink: 0; transition: transform 0.2s ease;" onclick="if(window.abrirLightbox) window.abrirLightbox(${arrJSON}, ${i + 1})" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" title="Ver captura">
+            `).join('')}
+            ${imagenesGallery.length > 5 ? `
+                <div class="rounded border border-secondary d-flex align-items-center justify-content-center" style="width: 80px; height: 50px; cursor: pointer; background: rgba(255,255,255,0.1); flex-shrink: 0; transition: transform 0.2s ease;" onclick="if(window.abrirLightbox) window.abrirLightbox(${arrJSON}, 5)" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                    <span class="text-light fw-bold">+${imagenesGallery.length - 5}</span>
+                </div>
+            ` : ''}
+        </div>
+    ` : '';
+
+    const carouselItems = imagenesGallery.map((img, i) => `
+        <div class="carousel-item ${i === 0 ? 'active' : ''}">
+            <img src="${img}" class="d-block w-100 rounded border shadow" alt="${juego.name}" style="height: 400px; object-fit: cover; border-color: var(--color-principal) !important; cursor: zoom-in;" onclick="if(window.abrirLightbox) window.abrirLightbox(${arrJSON}, ${i})" title="Pantalla Completa">
+        </div>
+    `).join('');
+
+    const carouselHtml = `
+        <div id="gameScreenshotsCarousel" class="carousel slide shadow-sm rounded mb-2" data-bs-ride="carousel">
+            <div class="carousel-inner rounded">
+                ${carouselItems}
+            </div>
+            ${imagenesGallery.length > 1 ? `
+            <button class="carousel-control-prev" type="button" data-bs-target="#gameScreenshotsCarousel" data-bs-slide="prev" onclick="event.stopPropagation();">
+                <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: drop-shadow(0 0 5px rgba(0,0,0,0.8));"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#gameScreenshotsCarousel" data-bs-slide="next" onclick="event.stopPropagation();">
+                <span class="carousel-control-next-icon" aria-hidden="true" style="filter: drop-shadow(0 0 5px rgba(0,0,0,0.8));"></span>
+                <span class="visually-hidden">Siguiente</span>
+            </button>
+            ` : ''}
+        </div>
+    `;
+
     const htmlDetalle = `
         <div class="row p-4 rounded shadow-lg border" style="background-color: var(--panel-oscuro) !important; border-color: var(--borde-sutil) !important;">
             <div class="col-md-5 mb-4 mb-md-0">
-                <img src="${juego.background_image}" class="img-fluid rounded border shadow" alt="${juego.name}" style="width: 100%; object-fit: cover; border-color: var(--color-principal) !important;">
+                ${carouselHtml}
+                ${thumbnailsHtml}
             </div>
             
             <div class="col-md-7 d-flex flex-column">
@@ -100,7 +150,7 @@ function renderizarPantallaDetalle(juego) {
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label text-muted">Tu Nombre</label>
-                                        <input type="text" id="resena-nombre" class="form-control input-busqueda" placeholder="Jugador123" required>
+                                        <input type="text" id="resena-nombre" class="form-control input-busqueda" placeholder="Jugador123" value="${nombreUsuario}" ${readOnlyAtributo} required>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label text-muted">Calificación</label>

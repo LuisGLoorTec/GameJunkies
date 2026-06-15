@@ -560,4 +560,118 @@ body.light-mode .toast-custom {
 #contenedor-subastas {
     padding-top: 20px;
     padding-bottom: 25px;
+}
+
+/* Estilos de input de subasta que se adaptan al tema */
+.bid-input {
+    background-color: var(--fondo-oscuro) !important;
+    color: var(--texto-principal) !important;
+    border-color: var(--borde-sutil) !important;
+}
+
+.bid-input:focus {
+    border-color: var(--color-principal) !important;
+    box-shadow: 0 0 0 0.25rem rgba(45, 176, 230, 0.25) !important;
+}
+
+/* --- LIGHTBOX STYLES --- */
+.lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1050; /* Above Bootstrap modal */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#lightbox-img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.8);
+    transition: transform 0.3s ease;
+}
+
+.lightbox-btn {
+    position: absolute;
+    background: rgba(18, 18, 18, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1060;
+}
+
+.lightbox-btn:hover {
+    background: var(--color-principal);
+    transform: scale(1.1);
+}
+
+.lightbox-btn .material-symbols-outlined {
+    font-size: 30px;
+}
+
+#lightbox-close {
+    top: -40px;
+    right: -40px;
+}
+
+#lightbox-prev {
+    left: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#lightbox-prev:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+
+#lightbox-next {
+    right: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#lightbox-next:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-counter {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    background: rgba(0,0,0,0.5);
+    padding: 5px 15px;
+    border-radius: 20px;
+}
+
+@media (max-width: 768px) {
+    #lightbox-close { top: 10px; right: 10px; }
+    #lightbox-prev { left: 10px; }
+    #lightbox-next { right: 10px; }
+    .lightbox-counter { bottom: 10px; }
 }

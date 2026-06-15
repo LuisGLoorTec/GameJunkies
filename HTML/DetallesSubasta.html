@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de la Subasta - GameJunkies</title>
+    <!-- CSS Bootstrap y Personalizado -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../style/main.css">
+</head>
+<body style="background-color: var(--fondo-oscuro); color: var(--texto-principal);">
+
+    <!-- Contenedor del Navbar dinámico -->
+    <div id="navbar-container"></div>
+
+    <main class="container py-5 mt-5">
+        <div id="contenedor-detalle-subasta">
+            <div class="text-center py-5">
+                <div class="spinner-border text-warning" role="status">
+                    <span class="visually-hidden">Cargando...</span>
+                </div>
+                <h4 class="mt-3 text-muted">Buscando información de la subasta...</h4>
+            </div>
+        </div>
+    </main>
+
+    <!-- Contenedor del Footer dinámico -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts Core -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Scripts Propios -->
+    <script src="../JavaScript/layout.js"></script>
+    <script src="../JavaScript/asistente.js"></script>
+    <script src="../JavaScript/carrito.js"></script>
+    <script src="../JavaScript/auth.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const parametrosUrl = new URLSearchParams(window.location.search);
+            const idSubasta = parametrosUrl.get('id');
+            const contenedorDetalle = document.getElementById('contenedor-detalle-subasta');
+            
+            const estadoSubastas = JSON.parse(localStorage.getItem('subastasGameJunkies'));
+            
+            if (idSubasta && estadoSubastas) {
+                const subasta = estadoSubastas.find(item => item.id === idSubasta);
+                const usuarioActual = JSON.parse(localStorage.getItem('usuarioActual'));
+                const nombreUsuario = usuarioActual ? usuarioActual.nombre : null;
+                
+                if (subasta) {
+                    window.renderizarDetalleSubasta = function() {
+                        // Obtener estado fresco
+                        const estadoFresco = JSON.parse(localStorage.getItem('subastasGameJunkies'));
+                        const subastaFresca = estadoFresco.find(item => item.id === idSubasta);
+                        if(!subastaFresca) return;
+
+                        const esLider = nombreUsuario && subastaFresca.usuarioLider === nombreUsuario;
+                        const minPuja = parseFloat(subastaFresca.pujaActual) + 10;
+                        
+                        const htmlDetalle = `
+                            <div class="row p-4 rounded shadow-lg border" style="background-color: var(--panel-oscuro) !important; border-color: ${esLider ? 'var(--color-exito)' : 'var(--borde-sutil)'} !important; box-shadow: ${esLider ? '0 0 25px rgba(65, 187, 66, 0.3)' : 'none'} !important;">
+                                <div class="col-md-5 mb-4 mb-md-0 d-flex align-items-center justify-content-center position-relative" style="background-color: #1a1a1a; border-radius: 8px;">
+                                    <span class="position-absolute top-0 start-0 m-3 badge badge-merch px-3 py-2 fs-5">EN VIVO 🔴</span>
+                                    ${esLider ? '<span class="position-absolute top-0 end-0 m-3 badge bg-success px-3 py-2 fs-5">¡Vas Ganando! 👑</span>' : ''}
+                                    <img src="${subastaFresca.image}" class="img-fluid rounded" alt="${subastaFresca.name}" style="max-height: 500px; object-fit: contain; cursor: pointer;" onclick="if(window.abrirLightbox) window.abrirLightbox('${subastaFresca.image}')" title="Haz clic para ampliar">
+                                </div>
+                                
+                                <div class="col-md-7 d-flex flex-column ps-md-5">
+                                    <span class="badge mb-3 align-self-start text-uppercase" style="background-color: var(--color-principal); font-size: 1rem; color: #fff;">SUBASTA EXCLUSIVA</span>
+                                    <h1 class="mb-4 fw-bold" style="color: var(--texto-principal);">${subastaFresca.name}</h1>
+                                    
+                                    <div class="row mb-4">
+                                        <div class="col-6">
+                                            <div class="p-3 rounded h-100" style="background-color: var(--fondo-oscuro); border: 1px solid var(--borde-sutil);">
+                                                <span class="text-muted fw-bold d-block mb-1">Mejor Puja:</span>
+                                                <span class="text-precio fw-bold" style="font-size: 2.5rem; color: var(--color-naranja) !important;">$${subastaFresca.pujaActual.toFixed(2)}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="p-3 rounded h-100" style="background-color: var(--fondo-oscuro); border: 1px solid var(--borde-sutil);">
+                                                <span class="text-muted fw-bold d-block mb-1">Líder Actual:</span>
+                                                <span class="fw-bold" style="font-size: 1.8rem; color: ${esLider ? 'var(--color-exito)' : 'var(--texto-principal)'};">
+                                                    ${esLider ? '¡Eres Tú!' : subastaFresca.usuarioLider}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center mb-5 p-3 rounded" style="background-color: rgba(255, 235, 59, 0.1); border: 1px dashed rgba(255, 235, 59, 0.4);">
+                                        <span class="text-warning d-block mb-2 text-uppercase fw-bold" style="font-size: 1rem;">Tiempo Restante para finalizar</span>
+                                        <div class="tiempo-restante fw-bold text-warning" data-fechafin="${subastaFresca.fechaFin}" style="font-size: 2.5rem; letter-spacing: 2px;">Calculando...</div>
+                                    </div>
+                                    
+                                    <div class="mt-auto d-flex flex-column flex-md-row gap-3">
+                                        <div class="input-group input-group-lg flex-grow-1" style="max-width: 250px;">
+                                            <span class="input-group-text bid-input border-end-0">$</span>
+                                            <input type="number" class="form-control bid-input border-start-0 fs-4 fw-bold" id="input-detalle-${subastaFresca.id}" min="${minPuja}" value="${minPuja}" step="5">
+                                        </div>
+                                        <button class="btn btn-principal btn-lg fw-bold flex-grow-1 d-flex align-items-center justify-content-center gap-2" 
+                                                onclick="realizarPujaDetalle('${subastaFresca.id}')">
+                                            PUJAR AHORA <img src="../img/icon/martillo.webp" style="width: 28px; height: 28px; object-fit: contain;" alt="Martillo">
+                                        </button>
+                                        <a href="Subastas.html" class="btn btn-secundario btn-lg d-flex align-items-center justify-content-center">
+                                            <span class="material-symbols-outlined">arrow_back</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        contenedorDetalle.innerHTML = htmlDetalle;
+                        actualizarUnTemporizador();
+                    };
+
+                    window.renderizarDetalleSubasta();
+                    
+                    // Intervalo para el timer
+                    setInterval(actualizarUnTemporizador, 1000);
+
+                    function actualizarUnTemporizador() {
+                        const el = document.querySelector('.tiempo-restante');
+                        if(!el) return;
+
+                        const fechaFin = new Date(el.getAttribute('data-fechafin')).getTime();
+                        const ahora = Date.now();
+                        const distancia = fechaFin - ahora;
+
+                        if (distancia < 0) {
+                            el.innerHTML = "FINALIZADA";
+                            el.style.color = "var(--texto-apagado)";
+                            return;
+                        }
+
+                        const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+                        const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+                        const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+                        let tiempoTexto = "";
+                        if (dias > 0) tiempoTexto += `${dias}d `;
+                        tiempoTexto += `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+                        
+                        el.innerHTML = tiempoTexto;
+                    }
+
+                    window.realizarPujaDetalle = function(id) {
+                        const usuarioActual = JSON.parse(localStorage.getItem('usuarioActual'));
+                        
+                        if (!usuarioActual) {
+                            if (window.mostrarToast) window.mostrarToast('Debes iniciar sesión para hacer una puja.', 'error');
+                            const modalLogin = new bootstrap.Modal(document.getElementById('modalLogin'));
+                            if(modalLogin) modalLogin.show();
+                            return;
+                        }
+
+                        const inputMonto = document.getElementById(`input-detalle-${id}`);
+                        const montoStr = inputMonto.value;
+                        const monto = parseFloat(montoStr);
+                        
+                        let estadoFresco = JSON.parse(localStorage.getItem('subastasGameJunkies'));
+                        const index = estadoFresco.findIndex(s => s.id === id);
+                        if (index === -1) return;
+
+                        const sub = estadoFresco[index];
+
+                        if (isNaN(monto) || monto <= parseFloat(sub.pujaActual)) {
+                            if (window.mostrarToast) window.mostrarToast(`La puja debe ser mayor a $${sub.pujaActual}.`, 'error');
+                            inputMonto.classList.add('is-invalid');
+                            setTimeout(() => inputMonto.classList.remove('is-invalid'), 1500);
+                            return;
+                        }
+
+                        estadoFresco[index].pujaActual = monto;
+                        estadoFresco[index].usuarioLider = usuarioActual.nombre;
+                        localStorage.setItem('subastasGameJunkies', JSON.stringify(estadoFresco));
+                        
+                        window.renderizarDetalleSubasta(); // Re-renderizar la UI
+                        
+                        if (window.mostrarToast) window.mostrarToast('¡Puja exitosa! Ahora eres el líder de la subasta.', 'success');
+                    };
+
+                } else {
+                    contenedorDetalle.innerHTML = '<h2 class="text-center mt-5 text-danger">Error: Subasta no encontrada.</h2><div class="text-center mt-4"><a href="Subastas.html" class="btn btn-secundario">Volver</a></div>';
+                }
+            } else {
+                contenedorDetalle.innerHTML = '<h2 class="text-center mt-5 text-danger">Error: No se seleccionó ninguna subasta.</h2><div class="text-center mt-4"><a href="Subastas.html" class="btn btn-secundario">Volver</a></div>';
+            }
+        });
+    </script>
+</body>
+</html>

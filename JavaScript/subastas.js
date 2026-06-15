@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const tarjeta = document.createElement('div');
             tarjeta.className = 'col';
             tarjeta.innerHTML = `
-                <div class="card card-game h-100 ${animar}" style="${esLider ? 'border-color: var(--color-exito); box-shadow: 0 0 15px rgba(65, 187, 66, 0.2);' : ''}">
+                <div class="card card-game h-100 ${animar}" style="cursor: pointer; ${esLider ? 'border-color: var(--color-exito); box-shadow: 0 0 15px rgba(65, 187, 66, 0.2);' : ''}" onclick="window.location.href='DetallesSubasta.html?id=${subasta.id}'">
                     <div class="position-relative">
                         <img src="${subasta.image}" class="card-img-top w-100" alt="${subasta.name}" style="height: 300px; object-fit: cover;">
                         ${esLider ? '<span class="position-absolute top-0 end-0 m-2 badge bg-success px-2 py-1 fs-6">¡Vas Ganando! 👑</span>' : ''}
@@ -96,11 +96,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
 
                         <div class="mt-auto">
-                            <div class="input-group mb-3">
+                            <div class="input-group mb-3" onclick="event.stopPropagation();">
                                 <span class="input-group-text bid-input border-end-0">$</span>
                                 <input type="number" class="form-control bid-input border-start-0 fs-5" id="input-${subasta.id}" min="${minPuja}" value="${minPuja}" step="5">
                             </div>
-                            <button class="btn btn-principal w-100 fw-bold fs-5 py-2 d-flex align-items-center justify-content-center gap-2" onclick="realizarPuja('${subasta.id}')">
+                            <button class="btn btn-principal w-100 fw-bold fs-5 py-2 d-flex align-items-center justify-content-center gap-2" onclick="event.stopPropagation(); realizarPuja('${subasta.id}')">
                                 PUJAR AHORA 
                                 <img src="../img/icon/martillo.webp" style="width: 24px; height: 24px; object-fit: contain;" alt="Martillo">
                             </button>

@@ -49,7 +49,7 @@
                     const htmlDetalle = `
                         <div class="row p-4 rounded shadow-lg border" style="background-color: var(--panel-oscuro) !important; border-color: var(--borde-sutil) !important;">
                             <div class="col-md-5 mb-4 mb-md-0 d-flex align-items-center justify-content-center" style="background-color: #1a1a1a; border-radius: 8px;">
-                                <img src="../img/merch/${producto.img}" class="img-fluid rounded" alt="${producto.nombre}" style="max-height: 500px; object-fit: contain;">
+                                <img src="../img/merch/${producto.img}" class="img-fluid rounded" alt="${producto.nombre}" style="max-height: 500px; object-fit: contain; cursor: pointer;" onclick="if(window.abrirLightbox) window.abrirLightbox('../img/merch/${producto.img}')" title="Haz clic para ampliar">
                             </div>
                             
                             <div class="col-md-7 d-flex flex-column ps-md-5">

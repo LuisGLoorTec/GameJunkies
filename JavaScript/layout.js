@@ -347,9 +347,15 @@ function cargarFooter() {
     document.body.insertAdjacentHTML('beforeend', footerHTML);
 }
 
-// Cargar el script del asistente IA dinámicamente
+// Cargar scripts adicionales dinámicamente
 document.addEventListener('DOMContentLoaded', () => {
+    const basePath = window.location.pathname.includes('/HTML/') ? '../' : '';
+    
     const scriptAsistente = document.createElement('script');
-    scriptAsistente.src = '../JavaScript/asistente.js';
+    scriptAsistente.src = basePath + 'JavaScript/asistente.js';
     document.body.appendChild(scriptAsistente);
+
+    const scriptLightbox = document.createElement('script');
+    scriptLightbox.src = basePath + 'JavaScript/lightbox.js';
+    document.body.appendChild(scriptLightbox);
 });
