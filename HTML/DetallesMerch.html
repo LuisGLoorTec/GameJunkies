@@ -45,6 +45,10 @@
             if (idMerch && typeof catalogoMerch !== 'undefined') {
                 const producto = catalogoMerch.find(item => item.id === idMerch);
                 
+                const usuarioActualInfo = JSON.parse(localStorage.getItem('usuarioActual'));
+                const nombreUsuario = usuarioActualInfo ? usuarioActualInfo.nombre : '';
+                const readOnlyAtributo = nombreUsuario ? 'readonly' : '';
+                
                 if (producto) {
                     const htmlDetalle = `
                         <div class="row p-4 rounded shadow-lg border" style="background-color: var(--panel-oscuro) !important; border-color: var(--borde-sutil) !important;">
@@ -61,7 +65,7 @@
                                 </div>
 
                                 <p class="mb-5" style="color: var(--texto-apagado); line-height: 1.8; font-size: 1.1rem;">
-                                    ${producto.descripcion}
+                                    ${producto.descripcion.substring(0, 150)}...
                                 </p>
                                 
                                 <div class="mt-auto pt-4 d-flex flex-column flex-md-row gap-3">
@@ -74,8 +78,74 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="mt-5">
+                            <ul class="nav nav-tabs custom-tabs" id="merchTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general-tab-pane" type="button" role="tab" aria-controls="general-tab-pane" aria-selected="true">Información General</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="resenas-tab" data-bs-toggle="tab" data-bs-target="#resenas-tab-pane" type="button" role="tab" aria-controls="resenas-tab-pane" aria-selected="false">Reseñas</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content p-4 border border-top-0 rounded-bottom" id="merchTabsContent" style="background-color: var(--panel-oscuro); border-color: var(--borde-sutil) !important;">
+                                
+                                <div class="tab-pane fade show active" id="general-tab-pane" role="tabpanel" aria-labelledby="general-tab" tabindex="0">
+                                    <h5 style="color: var(--texto-principal); margin-bottom: 20px;">Descripción del Producto</h5>
+                                    <p style="color: var(--texto-principal); line-height: 1.7; white-space: pre-line;">${producto.descripcion}</p>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="resenas-tab-pane" role="tabpanel" aria-labelledby="resenas-tab" tabindex="0">
+                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                        <h5 style="color: var(--texto-principal); margin-bottom: 0;">Comentarios y Reseñas</h5>
+                                    </div>
+                                    
+                                    <div class="card mb-4 shadow-sm" style="background-color: var(--fondo-oscuro); border-color: var(--borde-sutil);">
+                                        <div class="card-body">
+                                            <form id="form-resena">
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-3">
+                                                        <label class="form-label text-muted">Tu Nombre</label>
+                                                        <input type="text" id="resena-nombre" class="form-control input-busqueda" placeholder="Jugador123" value="${nombreUsuario}" ${readOnlyAtributo} required>
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label class="form-label text-muted">Calificación</label>
+                                                        <select id="resena-rating" class="form-select select-filtro">
+                                                            <option value="5">★★★★★ (Excelente)</option>
+                                                            <option value="4">★★★★ (Muy Bueno)</option>
+                                                            <option value="3">★★★ (Bueno)</option>
+                                                            <option value="2">★★ (Regular)</option>
+                                                            <option value="1">★ (Malo)</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label text-muted">Tu Comentario</label>
+                                                    <textarea id="resena-texto" class="form-control input-busqueda" rows="3" placeholder="¿Qué te pareció el producto?" required></textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-principal" style="background-color: var(--color-principal); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold;">Publicar Reseña</button>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <div id="lista-resenas">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     `;
                     contenedorDetalle.innerHTML = htmlDetalle;
+                    
+                    cargarResenasMerch(producto.id);
+                    
+                    const formResena = document.getElementById('form-resena');
+                    if (formResena) {
+                        formResena.addEventListener('submit', (e) => {
+                            e.preventDefault();
+                            guardarResenaMerch(producto.id);
+                        });
+                    }
+
                 } else {
                     contenedorDetalle.innerHTML = '<h2 class="text-center mt-5 text-danger">Error: Producto no encontrado.</h2><div class="text-center mt-4"><a href="Merch.html" class="btn btn-secundario">Volver</a></div>';
                 }
@@ -83,6 +153,62 @@
                 contenedorDetalle.innerHTML = '<h2 class="text-center mt-5 text-danger">Error: No se seleccionó ningún producto.</h2><div class="text-center mt-4"><a href="Merch.html" class="btn btn-secundario">Volver</a></div>';
             }
         });
+
+        function cargarResenasMerch(idProducto) {
+            const contenedorResenas = document.getElementById('lista-resenas');
+            const resenasGuardadas = JSON.parse(localStorage.getItem(`resenas_merch_${idProducto}`)) || [];
+            
+            if (resenasGuardadas.length === 0) {
+                contenedorResenas.innerHTML = '<p class="text-muted text-center my-4">Aún no hay reseñas. ¡Sé el primero en comentar!</p>';
+                return;
+            }
+            
+            let html = '';
+            resenasGuardadas.forEach(resena => {
+                const estrellas = `<span class="material-symbols-outlined text-warning" style="font-variation-settings: 'FILL' 1; font-size: 1.2rem;">star</span>`.repeat(resena.rating);
+                html += `
+                    <div class="card mb-3" style="background-color: transparent; border-color: var(--borde-sutil); border-left: 4px solid var(--color-secundario);">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <strong style="color: var(--texto-principal); font-size: 1.1rem;">${resena.nombre}</strong>
+                                <small class="text-muted">${resena.fecha}</small>
+                            </div>
+                            <div class="mb-3">${estrellas}</div>
+                            <p style="color: var(--texto-apagado); margin-bottom: 0; line-height: 1.5;">${resena.texto}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            contenedorResenas.innerHTML = html;
+        }
+
+        function guardarResenaMerch(idProducto) {
+            const nombre = document.getElementById('resena-nombre').value.trim();
+            const rating = document.getElementById('resena-rating').value;
+            const texto = document.getElementById('resena-texto').value.trim();
+            
+            if (!nombre || !texto) return;
+            
+            const nuevaResena = {
+                nombre: nombre,
+                rating: parseInt(rating),
+                texto: texto,
+                fecha: new Date().toLocaleDateString()
+            };
+            
+            const resenasGuardadas = JSON.parse(localStorage.getItem(`resenas_merch_${idProducto}`)) || [];
+            resenasGuardadas.unshift(nuevaResena); 
+            
+            localStorage.setItem(`resenas_merch_${idProducto}`, JSON.stringify(resenasGuardadas));
+            
+            if(document.getElementById('form-resena')) document.getElementById('form-resena').reset();
+            
+            if (window.mostrarToast) {
+                window.mostrarToast('Reseña publicada correctamente', 'success');
+            }
+            
+            cargarResenasMerch(idProducto);
+        }
     </script>
 </body>
 </html>
