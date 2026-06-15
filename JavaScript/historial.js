@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Si hay historial, renderizar tarjetas
     contenedorHistorial.innerHTML = ''; // Limpiar loader
 
-    historial.forEach(orden => {
+    historial.forEach((orden, index) => {
         // Formatear fecha
         const fechaObj = new Date(orden.fecha);
         const fechaFormateada = fechaObj.toLocaleDateString('es-ES', {
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Construir Tarjeta
         const cardHTML = `
-            <div class="order-card p-4">
+            <div class="order-card p-4 mb-4" data-aos="fade-up" data-aos-delay="${(index % 10) * 50}">
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3" style="border-color: var(--borde-sutil) !important;">
                     <div>
                         <span class="badge bg-success mb-1">Completado</span>

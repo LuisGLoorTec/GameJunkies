@@ -171,11 +171,11 @@ function renderizarGrilla(juegos, contenedorId = 'contenedor-juegos-grilla') {
     
     contenedorSeleccionado.innerHTML = ''; 
     
-    juegos.forEach(juego => {
+    juegos.forEach((juego, index) => {
         const precioAleatorio = (Math.random() * (69.99 - 19.99) + 19.99).toFixed(2);
         
         const tarjetaHtml = `
-            <div class="col">
+            <div class="col" data-aos="fade-up" data-aos-delay="${(index % 10) * 50}">
                 <div class="card card-game h-100" style="cursor: pointer;" onclick="window.location.href=window.location.pathname.includes('/HTML/') ? 'Detalles.html?id=${juego.id}' : 'HTML/Detalles.html?id=${juego.id}'">
                     <div class="position-relative">
                         <img src="${juego.background_image}" class="card-img-top img-poster w-100" alt="${juego.name}">
@@ -397,9 +397,9 @@ const contenedorMerch = document.getElementById('contenedor-merch-grilla');
 function renderizarMerch(productos) {
     contenedorMerch.innerHTML = '';
     
-    productos.forEach(producto => {
+    productos.forEach((producto, index) => {
         const tarjetaMerchHtml = `
-            <div class="col">
+            <div class="col" data-aos="fade-up" data-aos-delay="${(index % 10) * 50}">
                 <div class="card card-game h-100">
                     <div class="position-relative">
                         <img src="${producto.image}" class="card-img-top img-poster w-100" alt="${producto.name}">

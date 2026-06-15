@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
         contenedorResultados.innerHTML = ''; 
         let cantidadMostrada = 0;
         
-        juegos.forEach(juego => {
+        juegos.forEach((juego, index) => {
             const precioAleatorio = (Math.random() * (69.99 - 19.99) + 19.99).toFixed(2);
             
             const maxPrecio = parseFloat(rangoPrecio.value);
@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const imagen = juego.background_image || 'https://via.placeholder.com/300x200/121212/ffffff?text=No+Image';
             
             const tarjetaHtml = `
-                <div class="col">
+                <div class="col" data-aos="zoom-in" data-aos-delay="${(cantidadMostrada % 10) * 50}">
                     <div class="card card-game h-100" style="cursor: pointer;" onclick="window.location.href='Detalles.html?id=${juego.id}'">
                         <div class="position-relative">
                             <img src="${imagen}" class="card-img-top img-poster w-100" alt="${juego.name}" style="height: 200px; object-fit: cover;">

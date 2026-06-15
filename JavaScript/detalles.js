@@ -81,7 +81,7 @@ function renderizarPantallaDetalle(juego, screenshots) {
     `;
 
     const htmlDetalle = `
-        <div class="row p-4 rounded shadow-lg border" style="background-color: var(--panel-oscuro) !important; border-color: var(--borde-sutil) !important;">
+        <div class="row p-4 rounded shadow-lg border" style="background-color: var(--panel-oscuro) !important; border-color: var(--borde-sutil) !important;" data-aos="zoom-in" data-aos-duration="600">
             <div class="col-md-5 mb-4 mb-md-0">
                 ${carouselHtml}
                 ${thumbnailsHtml}

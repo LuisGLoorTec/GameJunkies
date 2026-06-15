@@ -674,4 +674,7 @@ body.light-mode .toast-custom {
     #lightbox-prev { left: 10px; }
     #lightbox-next { right: 10px; }
     .lightbox-counter { bottom: 10px; }
-}
+}
+/* Scroll Suave */
+html { scroll-behavior: smooth; }
+

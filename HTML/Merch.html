@@ -82,10 +82,10 @@
             const contenedor = document.getElementById('contenedor-merch');
             if (contenedor && typeof catalogoMerch !== 'undefined') {
                 contenedor.innerHTML = '';
-                catalogoMerch.forEach(item => {
+                catalogoMerch.forEach((item, index) => {
                     const esRopa = item.categoria === 'Ropa';
                     contenedor.innerHTML += `
-                        <div class="col">
+                        <div class="col" data-aos="fade-up" data-aos-delay="${(index % 10) * 50}">
                             <div class="card card-game h-100 shadow-sm" style="background-color: var(--panel-oscuro); border-color: transparent;" onclick="window.location.href='DetallesMerch.html?id=${item.id}'">
                                 <div class="tarjeta-img-contenedor">
                                     <span class="badge position-absolute top-0 end-0 m-3 badge-categoria">${item.categoria}</span>

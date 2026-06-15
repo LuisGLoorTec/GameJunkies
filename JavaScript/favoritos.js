@@ -44,9 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         let html = '';
-        deseos.forEach(item => {
+        deseos.forEach((item, index) => {
             html += `
-                <div class="col">
+                <div class="col" data-aos="fade-up" data-aos-delay="${(index % 10) * 50}">
                     <div class="deseo-card h-100 d-flex flex-column">
                         <img src="${item.image}" class="deseo-img" alt="${item.name}">
                         <div class="p-3 d-flex flex-column flex-grow-1">

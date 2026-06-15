@@ -6,6 +6,14 @@ if (!document.querySelector('link[href*="Material+Symbols+Outlined"]')) {
     document.head.appendChild(fontLink);
 }
 
+// Inyectar AOS CSS globalmente
+if (!document.querySelector('link[href*="aos.css"]')) {
+    const aosCss = document.createElement('link');
+    aosCss.rel = 'stylesheet';
+    aosCss.href = 'https://unpkg.com/aos@next/dist/aos.css';
+    document.head.appendChild(aosCss);
+}
+
 // Función para cargar el Navbar dinámicamente
 function cargarNavbar() {
     const inHTMLFolder = window.location.pathname.includes('/HTML/');
@@ -358,4 +366,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const scriptLightbox = document.createElement('script');
     scriptLightbox.src = basePath + 'JavaScript/lightbox.js';
     document.body.appendChild(scriptLightbox);
+
+    // Cargar AOS JS e inicializar
+    if (!document.querySelector('script[src*="aos.js"]')) {
+        const scriptAos = document.createElement('script');
+        scriptAos.src = 'https://unpkg.com/aos@next/dist/aos.js';
+        scriptAos.onload = () => {
+            AOS.init({ once: true, offset: 100, duration: 600 });
+        };
+        document.body.appendChild(scriptAos);
+    }
 });

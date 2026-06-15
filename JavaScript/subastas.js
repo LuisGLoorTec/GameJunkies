@@ -60,13 +60,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const usuarioActual = JSON.parse(localStorage.getItem('usuarioActual'));
         const nombreUsuario = usuarioActual ? usuarioActual.nombre : null;
 
-        estadoSubastas.forEach(subasta => {
+        estadoSubastas.forEach((subasta, index) => {
             const minPuja = parseFloat(subasta.pujaActual) + 10;
             const esLider = nombreUsuario && subasta.usuarioLider === nombreUsuario;
             const animar = subasta.id === animarId ? 'nueva-puja' : '';
 
             const tarjeta = document.createElement('div');
             tarjeta.className = 'col';
+            tarjeta.setAttribute('data-aos', 'fade-up');
+            tarjeta.setAttribute('data-aos-delay', (index % 10) * 50);
             tarjeta.innerHTML = `
                 <div class="card card-game h-100 ${animar}" style="cursor: pointer; ${esLider ? 'border-color: var(--color-exito); box-shadow: 0 0 15px rgba(65, 187, 66, 0.2);' : ''}" onclick="window.location.href='DetallesSubasta.html?id=${subasta.id}'">
                     <div class="position-relative">
