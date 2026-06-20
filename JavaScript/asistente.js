@@ -57,7 +57,7 @@
     });
 
     // 4. Lógica de Mensajería
-    const GROQ_API_KEY = 'gsk_' + 'XNS7tAUircOBDQzzG7a0WGdyb3FYMthSMmDnYBSdhR27D7KQCdPP';
+    const GROQ_API_KEY = 'gsk_' + 'nD6EX73HeRPhdtbocJglWGdyb3FYynDZSlPtFrE6TKzbyskn15vL';
     const GROQ_URL = `https://api.groq.com/openai/v1/chat/completions`;
     
     // Historial de conversación para dar contexto
